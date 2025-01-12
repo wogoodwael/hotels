@@ -1,5 +1,5 @@
 import 'package:flights/features/Flights/search_flight/presentation/search_flight_taps.dart';
-import 'package:flights/features/Hotels/searchHotel/search_hotels_page.dart';
+import 'package:flights/features/Hotels/searchHotel/presentation/search_hotels_page.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/home_header.dart';

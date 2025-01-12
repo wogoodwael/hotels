@@ -1,3 +1,6 @@
+import 'package:flights/features/Hotels/searchHotel/data/api/nearest_hotels_api.dart';
+import 'package:flights/features/Hotels/searchHotel/data/repo/nearest_repo.dart';
+import 'package:flights/features/Hotels/searchHotel/domain/nearest_hotels_controller.dart';
 import 'package:flights/search_flight_app.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,12 +24,14 @@ late final UpsellingController upsellingController;
 late final PriceController priceController;
 late final OrderController orderController; 
 late final OffersController offersController;
+late final NearestHotelsController nearestHotelsController;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('flightData');
   await Hive.openBox('travelerDetails');
+  await Hive.openBox('hotelData');
 
   upsellingController = Get.put(UpsellingController(
     upsellingRepo: UpsellingRepo(upsellingApi: UpsellingApi())));
@@ -36,6 +41,9 @@ void main() async {
     orderRepo: OrderRepo(orderApi: OrderApi())));
   offersController = Get.put(OffersController(
     offersRepo: OffersRepo(offersApi: OffersApi())));
+  nearestHotelsController = Get.put(NearestHotelsController(
+    nearestHotelsRepo: NearestHotelsRepo(nearestHotelsApi: NearestHotelsApi())));
+
 
   runApp(const SearchFlightsApp());
 }
