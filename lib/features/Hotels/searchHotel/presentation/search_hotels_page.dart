@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../main.dart';
+import 'search_hotel_view.dart';
 
 class SearchHotelsPage extends StatefulWidget {
   const SearchHotelsPage({super.key});
@@ -18,25 +19,41 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
   Map<String, dynamic>? locationData;
   bool isCleared = false;
   bool nonStop = false;
+  late Box hotelBox;
+  DateTime? checkInDate;
+  DateTime? checkOutDate;
+  String? cityName;
+  String? guests;
 
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
-
     _loadHotelData();
   }
 
   Future<void> _loadHotelData() async {
     try {
       if (!Hive.isBoxOpen('hotelData')) {
-        await Hive.openBox('hotelData');
+        hotelBox = await Hive.openBox('hotelData');
+      } else {
+        hotelBox = Hive.box('hotelData');
       }
-      final location = Hive.box('hotelData').get('location') ?? {};
+
+      final savedCityName = hotelBox.get('cityName');
+      final savedCheckIn = hotelBox.get('checkInDate');
+      final savedCheckOut = hotelBox.get('checkOutDate');
+      final savedGuests = hotelBox.get('guests');
+
       setState(() {
-        locationData = location != null
-            ? Map<String, dynamic>.from(location as Map)
-            : null;
+        cityName = savedCityName;
+        checkInDate = savedCheckIn != null
+            ? DateTime.parse(savedCheckIn)
+            : DateTime.now();
+        checkOutDate = savedCheckOut != null
+            ? DateTime.parse(savedCheckOut)
+            : DateTime.now().add(const Duration(days: 1));
+        guests = savedGuests ?? '1 Room, 2 Adults, 0 Children';
       });
     } catch (e) {
       debugPrint('Error loading hotel data: $e');
@@ -145,11 +162,11 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                 child: Column(
                   children: [
                     // Destination
-                    const ListTile(
+                    ListTile(
                       contentPadding: EdgeInsets.zero,
-                      leading:
-                          Icon(Icons.location_on_outlined, color: Colors.grey),
-                      title: Text(
+                      leading: const Icon(Icons.location_on_outlined,
+                          color: Colors.grey),
+                      title: const Text(
                         'Destination',
                         style: TextStyle(
                           color: Colors.grey,
@@ -157,12 +174,15 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                         ),
                       ),
                       subtitle: Text(
-                        'Damietta El-Gadeeda City, Egypt',
-                        style: TextStyle(
+                        cityName ?? 'Select city',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 16,
                         ),
                       ),
+                      onTap: () {
+                        Get.to(() => const SearchHotelView());
+                      },
                     ),
                     const Divider(),
 
@@ -184,7 +204,7 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                                 ),
                                 Text(
                                   DateFormat('dd MMM, yyyy')
-                                      .format(DateTime.now()),
+                                      .format(checkInDate ?? DateTime.now()),
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -203,8 +223,9 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                                 ),
                                 Text(
                                   DateFormat('dd MMM, yyyy').format(
-                                      DateTime.now()
-                                          .add(const Duration(days: 1))),
+                                      checkOutDate ??
+                                          DateTime.now()
+                                              .add(const Duration(days: 1))),
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ],
@@ -212,14 +233,41 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                           ),
                         ],
                       ),
+                      onTap: () async {
+                        // Add date picker functionality here
+                        DateTimeRange? dateRange = await showDateRangePicker(
+                          context: context,
+                          firstDate: DateTime.now(),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365)),
+                          initialDateRange: DateTimeRange(
+                            start: checkInDate ?? DateTime.now(),
+                            end: checkOutDate ??
+                                DateTime.now().add(const Duration(days: 1)),
+                          ),
+                        );
+
+                        if (dateRange != null) {
+                          setState(() {
+                            checkInDate = dateRange.start;
+                            checkOutDate = dateRange.end;
+                          });
+
+                          hotelBox.put(
+                              'checkInDate', dateRange.start.toIso8601String());
+                          hotelBox.put(
+                              'checkOutDate', dateRange.end.toIso8601String());
+                        }
+                      },
                     ),
                     const Divider(),
 
                     // Guests
-                    const ListTile(
+                    ListTile(
                       contentPadding: EdgeInsets.zero,
-                      leading: Icon(Icons.people_outline, color: Colors.grey),
-                      title: Text(
+                      leading:
+                          const Icon(Icons.people_outline, color: Colors.grey),
+                      title: const Text(
                         'Guests',
                         style: TextStyle(
                           color: Colors.grey,
@@ -227,12 +275,15 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                         ),
                       ),
                       subtitle: Text(
-                        '1 Room, 2 Adults, 0 Children',
-                        style: TextStyle(
+                        guests ?? '1 Room, 2 Adults, 0 Children',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 16,
                         ),
                       ),
+                      onTap: () {
+                        // Add guest selection functionality here
+                      },
                     ),
 
                     const SizedBox(height: 20),
@@ -266,7 +317,7 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                     InkWell(
                       onTap: () async {
                         await _getCurrentLocation();
-                        Get.to(() =>  NearByHotelView());
+                        Get.to(() => const NearByHotelView());
                       },
                       child: Row(
                         spacing: 10,

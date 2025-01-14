@@ -23,7 +23,7 @@ class NearestHotelsApi {
       // };
 
       final uri = Uri.parse(
-          '$baseUrl/amadeus/hotels/list-by-geocode?latitude=41.015137&longitude=28.979530'); //must be dynamic
+          '$baseUrl/amadeus/hotels/list-by-geocode?latitude=41.015137&longitude=28.979530&ratings=[1,2,3,,4,5]'); //must be dynamic
 
       final response = await http.get(uri);
       print(response.body);

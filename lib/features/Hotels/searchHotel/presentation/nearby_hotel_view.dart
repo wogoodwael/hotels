@@ -185,6 +185,7 @@ class NearByHotelView extends StatelessWidget {
                         imageWidget: imageWidget,
                         name: hotel.name,
                         location: hotel.address.countryCode,
+                        rating: hotel.rating,
                       );
                     },
                   );
@@ -231,12 +232,14 @@ class HotelCard extends StatelessWidget {
   final Widget imageWidget;
   final String name;
   final String location;
+  final int rating;
 
   const HotelCard({
     super.key,
     required this.imageWidget,
     required this.name,
     required this.location,
+    required this.rating,
   });
 
   @override
@@ -293,26 +296,21 @@ class HotelCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[50],
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: const Row(
-                        children: [
-                          Icon(Icons.star, size: 16, color: Colors.blue),
-                          SizedBox(width: 4),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        ...List.generate(
+                            rating,
+                            (index) => const Icon(Icons.star,
+                                size: 16, color: Colors.orange)),
+                        const SizedBox(width: 4),
+                      ],
                     ),
                     const SizedBox(width: 8),
                     const Text(
                       'Very good',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    const Text(' ( ratings)'),
+                    Text(' ($rating ratings)'),
                   ],
                 ),
               ],

@@ -46,6 +46,7 @@ dependencies:
   camera: ^0.10.5+2
   country_picker: ^2.0.27
   awesome_snackbar_content: ^0.1.4
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_gen_runner: ^5.8.0

@@ -50,6 +50,7 @@ class Hotel {
   final Address address;
   final Distance distance;
   final String lastUpdate;
+  final int rating;
   final dynamic hotellookId;
   final List<dynamic> photos;
 
@@ -63,6 +64,7 @@ class Hotel {
     required this.address,
     required this.distance,
     required this.lastUpdate,
+    required this.rating,
     required this.hotellookId,
     required this.photos,
   });
@@ -80,6 +82,7 @@ class Hotel {
       lastUpdate: json['lastUpdate'] ?? '',
       hotellookId: json['hotellook_id'],
       photos: json['photos'] ?? [],
+      rating: json['rating'] ?? 0,
     );
   }
 }
