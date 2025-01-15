@@ -4,26 +4,29 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class PassengerClassSection extends StatelessWidget {
-  const PassengerClassSection({super.key});
+  const PassengerClassSection({super.key, required this.isHotel});
+  final bool isHotel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => const PassengerClassPage()),
+      onTap: () => Get.to(() => PassengerClassPage(
+            isHotel: isHotel,
+          )),
       child: ListTile(
         leading: const Icon(
           Icons.group,
           color: Colors.grey,
         ),
-        title: const Text(
-          'Passengers and cabin Class',
-          style: TextStyle(fontSize: 12),
+        title: Text(
+          isHotel ? "Guests" : 'Passengers and cabin Class',
+          style: const TextStyle(fontSize: 12),
         ),
         subtitle: Text(
-            '${Hive.box('flightData').get('adults', defaultValue: 2)} Adults - '
-            '${Hive.box('flightData').get('children', defaultValue: 0)} Children - '
-            '${Hive.box('flightData').get('infants', defaultValue: 0)} Infants - '
-            '${Hive.box('flightData').get('cabinClass', defaultValue: 'First')} '),
+            '${isHotel ? Hive.box('hotelData').get('adults', defaultValue: 2) : Hive.box('flightData').get('adults', defaultValue: 2)} Adults - '
+            '${isHotel ? Hive.box('hotelData').get('children', defaultValue: 0) : Hive.box('flightData').get('children', defaultValue: 0)} Children - '
+            '${isHotel ? Hive.box('hotelData').get('infants', defaultValue: 0) : Hive.box('flightData').get('infants', defaultValue: 0)} Infants - '
+            '${isHotel ? "" : Hive.box('flightData').get('cabinClass', defaultValue: 'First')} '),
       ),
     );
   }

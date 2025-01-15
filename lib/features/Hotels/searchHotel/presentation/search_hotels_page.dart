@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../main.dart';
+import '../../../Flights/one_way/presentation/widgets/passenget_section.dart';
 import 'search_hotel_view.dart';
 
 class SearchHotelsPage extends StatefulWidget {
@@ -60,34 +61,8 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
     }
   }
 
-  Future<void> _getCurrentLocationWithRadius(double radius) async {
-    // Request location permission
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        debugPrint('Location permission denied');
-        return;
-      }
-    }
-
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-
-      await nearestHotelsController.getNearestHotelsWithRadius(
-        latitude: position.latitude,
-        longitude: position.longitude,
-        radius: radius.toInt(),
-      );
-    } catch (e) {
-      debugPrint('Error getting current location: $e');
-    }
-  }
-
   Future<void> _getCurrentLocation() async {
-    // Request location permission
+    
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -161,7 +136,7 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
-                    // Destination
+                    
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.location_on_outlined,
@@ -186,7 +161,7 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                     ),
                     const Divider(),
 
-                    // Check-in/Check-out Dates
+                    
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.calendar_today_outlined,
@@ -234,7 +209,7 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                         ],
                       ),
                       onTap: () async {
-                        // Add date picker functionality here
+                        
                         DateTimeRange? dateRange = await showDateRangePicker(
                           context: context,
                           firstDate: DateTime.now(),
@@ -262,33 +237,13 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                     ),
                     const Divider(),
 
-                    // Guests
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading:
-                          const Icon(Icons.people_outline, color: Colors.grey),
-                      title: const Text(
-                        'Guests',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                      ),
-                      subtitle: Text(
-                        guests ?? '1 Room, 2 Adults, 0 Children',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                      onTap: () {
-                        // Add guest selection functionality here
-                      },
+                    const PassengerClassSection(
+                      isHotel: true,
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
 
-                    // Search Button
+                    
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -307,17 +262,44 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await hotelsOfferController.getHotelOffers(
+                            hotelId: Hive.box('hotelData').get('hotelId',
+                                defaultValue: nearestHotelsController
+                                    .hotels?.data.data.first.hotelId),
+                            adults: Hive.box('hotelData')
+                                .get('adults', defaultValue: 2),
+                            checkInDate: DateFormat('yyyy-MM-dd').format(
+                                DateTime.parse(Hive.box('hotelData').get(
+                                    'checkInDate',
+                                    defaultValue:
+                                        DateTime.now().toIso8601String()))),
+                            checkOutDate: DateFormat('yyyy-MM-dd').format(
+                                DateTime.parse(Hive.box('hotelData').get(
+                                    'checkOutDate',
+                                    defaultValue:
+                                        DateTime.now().toIso8601String()))),
+                          );
+                          print(
+                              "hotelOffers: ${Hive.box('hotelData').get('hotelId', defaultValue: nearestHotelsController.hotels?.data.data.first.hotelId)}");
+                          print(
+                              "adults: ${Hive.box('hotelData').get('adults', defaultValue: 2)}");
+                          print(
+                              "checkInDate: ${Hive.box('hotelData').get('checkInDate', defaultValue: '')}");
+                          print(
+                              "checkOutDate: ${Hive.box('hotelData').get('checkOutDate', defaultValue: '')}");
+                          Get.to(() => const NearByHotelView(isOffers: true));
+                        },
                       ),
                     ),
 
                     const SizedBox(height: 20),
 
-                    // Nearby Properties Link
+                    
                     InkWell(
                       onTap: () async {
                         await _getCurrentLocation();
-                        Get.to(() => const NearByHotelView());
+                        Get.to(() => const NearByHotelView(isOffers: false));
                       },
                       child: Row(
                         spacing: 10,

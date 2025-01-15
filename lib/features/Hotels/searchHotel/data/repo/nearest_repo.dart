@@ -1,10 +1,16 @@
 import '../api/nearest_hotels_api.dart';
+import '../api/search_city.dart';
 import '../models/nearset_hotels_model.dart';
+import '../models/search_city_model.dart';
 
 class NearestHotelsRepo {
   final NearestHotelsApi nearestHotelsApi;
+  final SearchCityApi searchCityApi;
 
-  NearestHotelsRepo({required this.nearestHotelsApi});
+  NearestHotelsRepo({
+    required this.nearestHotelsApi,
+    required this.searchCityApi,
+  });
 
   Future<NearestHotelsModel> getNearestHotels({
     required double latitude,
@@ -61,5 +67,11 @@ class NearestHotelsRepo {
     } catch (e) {
       throw Exception('Repository Error: $e');
     }
+  }
+  Future<SearchCityModel> searchHotelsByCity({
+    required String cityCode,
+  }) async {
+    final result = await searchCityApi.searchHotelsByCity(cityCode: cityCode);
+    return result;
   }
 }

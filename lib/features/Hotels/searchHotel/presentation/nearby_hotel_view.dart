@@ -1,15 +1,100 @@
 import 'package:flights/utils/constants/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flights/features/Hotels/searchHotel/domain/nearest_hotels_controller.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
-class NearByHotelView extends StatelessWidget {
-  const NearByHotelView({super.key});
+import '../../hotelsOffers/domain/hotels_offer_controller.dart';
+
+class NearByHotelView extends StatefulWidget {
+  const NearByHotelView({super.key, required this.isOffers});
+  final bool isOffers;
+
+  @override
+  State<NearByHotelView> createState() => _NearByHotelViewState();
+}
+
+class _NearByHotelViewState extends State<NearByHotelView> {
+  String locationName = 'Unknown location';
+  final nearestHotelsController = Get.find<NearestHotelsController>();
+  DateTime? checkInDate;
+  DateTime? checkOutDate;
+  final hotelsOfferController = Get.find<HotelsOfferController>();
+
+  @override
+  void initState() {
+    super.initState();
+   
+    if (widget.isOffers) {
+      _getOffers();
+    } else {
+     _getLocationName(); 
+    }
+    
+    String? checkInString =
+        Hive.box('hotelData').get('checkInDate', defaultValue: null);
+    String? checkOutString =
+        Hive.box('hotelData').get('checkOutDate', defaultValue: null);
+
+    if (checkInString != null) {
+      checkInDate = DateTime.parse(checkInString);
+    }
+    if (checkOutString != null) {
+      checkOutDate = DateTime.parse(checkOutString);
+    }
+  }
+
+  Future<void> _getNearbyHotels() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      await nearestHotelsController.getNearestHotels(
+        latitude: position.latitude,
+        longitude: position.longitude,
+        radius: 100,
+      );
+    } catch (e) {
+      debugPrint('Error getting nearby hotels: $e');
+    }
+  }
+
+  Future<void> _getLocationName() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      setState(() {
+        locationName = placemarks.first.locality ?? 'loading... location';
+      });
+    } catch (e) {
+      debugPrint('Error getting current location: $e');
+    }
+  }
+
+  Future<void> _getOffers() async {
+    await hotelsOfferController.getHotelOffers(
+      hotelId: Hive.box('hotelData').get('hotelId',
+          defaultValue:
+              nearestHotelsController.hotels?.data.data.first.hotelId),
+      adults: Hive.box('hotelData').get('adults', defaultValue: 2),
+      checkInDate: Hive.box('hotelData').get('checkInDate', defaultValue: ''),
+      checkOutDate: Hive.box('hotelData').get('checkOutDate', defaultValue: ''),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final nearestHotelsController = Get.find<NearestHotelsController>();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -26,21 +111,34 @@ class NearByHotelView extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Damietta El-Gadeeda C...',
-              style: TextStyle(
+            Text(
+              widget.isOffers
+                  ? Hive.box('hotelData')
+                      .get('cityName', defaultValue: locationName)
+                  : locationName,
+              style: const TextStyle(
                 fontSize: 18,
+                color: Colors.black,
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.person_outline, size: 20, color: Colors.grey[600]),
+                InkWell(
+                    onTap: () {
+                      print("city$locationName");
+                    },
+                    child: Icon(Icons.person_outline,
+                        size: 20, color: Colors.grey[600])),
                 const SizedBox(width: 2),
-                Text('2',
+                Text(
+                    Hive.box('hotelData')
+                        .get('adults', defaultValue: 2)
+                        .toString(),
                     style: TextStyle(fontSize: 18, color: Colors.grey[600])),
                 const SizedBox(width: 5),
-                Text(' 12 Jan - 13 Jan',
+                Text(
+                    '${DateFormat('dd MMM').format(checkInDate ?? DateTime.now())} - ${DateFormat('dd MMM').format(checkOutDate ?? DateTime.now())}',
                     style: TextStyle(fontSize: 16, color: Colors.grey[600])),
                 const SizedBox(width: 5),
                 const Icon(Icons.keyboard_arrow_down,
@@ -58,7 +156,7 @@ class NearByHotelView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Filter chips
+          
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.all(8),
@@ -122,7 +220,7 @@ class NearByHotelView extends StatelessWidget {
             ),
           ),
 
-          // Property type chips
+          
           const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 8),
@@ -146,55 +244,73 @@ class NearByHotelView extends StatelessWidget {
             ),
           ),
 
-          // Properties count
+          
           const SizedBox(height: 10),
-          // Hotel listings
+          
           Expanded(
             child: Obx(() {
-              final hotels = nearestHotelsController.hotels?.data.data;
-              if (hotels == null || hotels.isEmpty) {
-                return const Center(child: Text("No hotels found."));
+              if (widget.isOffers) {
+                final hotelsOffers =
+                    hotelsOfferController.hotelOffers.value?.data.data;
+                if (hotelsOffers == null || hotelsOffers.isEmpty) {
+                  return const Center(child: Text("No hotel offers found."));
+                }
+                return _buildHotelList(hotelsOffers.length,
+                    hotelsOffers: hotelsOffers);
+              } else {
+                final hotels = nearestHotelsController.hotels?.data.data;
+                if (hotels == null || hotels.isEmpty) {
+                  return const Center(child: Text("No hotels found."));
+                }
+                return _buildHotelList(hotels.length, hotels: hotels);
               }
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: hotels.length,
-                itemBuilder: (context, index) {
-                  final hotel = hotels[index];
-                  return FutureBuilder(
-                    future: nearestHotelsController.fetchHotelPhotos(
-                        baseUrl,
-                        hotel.hotelId,
-                        hotel.geoCode.latitude,
-                        hotel.geoCode.longitude),
-                    builder: (context, snapshot) {
-                      Widget imageWidget;
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        imageWidget =
-                            const Center(child: CircularProgressIndicator());
-                      } else {
-                        imageWidget = Image.network(
-                          nearestHotelsController.hotelPhotos!.length > index
-                              ? nearestHotelsController.hotelPhotos![index]
-                              : 'https://via.placeholder.com/150',
-                          height: 200,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        );
-                      }
-                      return HotelCard(
-                        imageWidget: imageWidget,
-                        name: hotel.name,
-                        location: hotel.address.countryCode,
-                        rating: hotel.rating,
-                      );
-                    },
-                  );
-                },
-              );
             }),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildHotelList(int itemCount, {var hotels, var hotelsOffers}) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      itemCount: itemCount,
+      itemBuilder: (context, index) {
+        final hotelData =
+            widget.isOffers ? hotelsOffers[index].hotel : hotels[index];
+        return FutureBuilder(
+          future: nearestHotelsController.fetchHotelPhotos(
+            baseUrl,
+            hotelData.hotelId,
+            widget.isOffers ? hotelData.latitude : hotelData.geoCode.latitude,
+            widget.isOffers ? hotelData.longitude : hotelData.geoCode.longitude,
+          ),
+          builder: (context, snapshot) {
+            Widget imageWidget;
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              imageWidget = const Center(child: CircularProgressIndicator());
+            } else {
+              imageWidget = Image.network(
+                nearestHotelsController.hotelPhotos != null &&
+                        nearestHotelsController.hotelPhotos!.length > index
+                    ? nearestHotelsController.hotelPhotos![index]
+                    : 'https://via.placeholder.com/150',
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              );
+            }
+            return HotelCard(
+              imageWidget: imageWidget,
+              name: hotelData.name,
+              location: widget.isOffers
+                  ? hotelData.type
+                  : hotelData.address.countryCode,
+              rating: widget.isOffers ? 5 : hotelData.rating,
+            );
+          },
+        );
+      },
     );
   }
 }

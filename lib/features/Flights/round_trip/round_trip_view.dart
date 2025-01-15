@@ -31,7 +31,7 @@ class _RoundTripTabState extends State<RoundTripTab> {
                 children: [
                   const SizedBox(height: 10),
                   const FlightDetailsSection(),
-                  const PassengerClassSection(),
+                  const PassengerClassSection(isHotel: false,),
                   const Divider(
                     indent: 30,
                     endIndent: 10,

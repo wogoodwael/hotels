@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../../Hotels/searchHotel/presentation/search_hotels_page.dart';
 import '../../../search_flight/presentation/search_flight_taps.dart';
 
 class PassengerClassPage extends StatefulWidget {
-  const PassengerClassPage({super.key});
+  const PassengerClassPage({super.key, required this.isHotel});
+  final bool isHotel;
 
   @override
   _PassengerClassPageState createState() => _PassengerClassPageState();
@@ -15,11 +17,12 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
   int children = 1;
   int infants = 1;
   String cabinClass = 'First';
-  final _flightBox = Hive.box('flightData');
+  late final Box _flightBox;
 
   @override
   void initState() {
     super.initState();
+    _flightBox = widget.isHotel ? Hive.box('hotelData') : Hive.box('flightData');
     
     adults = _flightBox.get('adults', defaultValue: 2);
     children = _flightBox.get('children', defaultValue: 1);
@@ -49,7 +52,7 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
     _flightBox.put('infants', infants);
     _flightBox.put('cabinClass', cabinClass);
     Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const SearchFlightsPage()));
+        MaterialPageRoute(builder: (context) => widget.isHotel ? const SearchHotelsPage() : const SearchFlightsPage()));
   }
 
   @override
@@ -103,7 +106,7 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
                   ],
                 )),
             const SizedBox(height: 15),
-
+            if(!widget.isHotel)
             
             Container(
               width: .9 * MediaQuery.of(context).size.width,

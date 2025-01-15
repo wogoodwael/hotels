@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flights/features/Hotels/searchHotel/domain/nearest_hotels_controller.dart';
 import 'package:geocoding/geocoding.dart';
 import 'search_hotels_page.dart';
-//*need refactor 
+
 class SearchHotelView extends StatefulWidget {
   const SearchHotelView({super.key});
 
@@ -19,6 +19,23 @@ class _SearchHotelViewState extends State<SearchHotelView> {
   final nearestHotelsController = Get.find<NearestHotelsController>();
   String currentCity = 'Near me';
   bool showNearbyHotels = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    if (_searchController.text.isNotEmpty) {
+      
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (_searchController.text.isNotEmpty) {
+          _searchCity(_searchController.text);
+        }
+      });
+    }
+  }
 
   Future<void> _getCurrentLocation() async {
     LocationPermission permission = await Geolocator.checkPermission();
@@ -56,6 +73,33 @@ class _SearchHotelViewState extends State<SearchHotelView> {
     }
   }
 
+  Future<void> _searchCity(String cityCode) async {
+    try {
+      setState(() {
+        showNearbyHotels = false;
+      });
+      
+      
+      nearestHotelsController.setLoading(true);
+      
+      await nearestHotelsController.searchHotelsByCity(cityCode);
+      
+      
+      if (nearestHotelsController.searchResults?.data == null || 
+          nearestHotelsController.searchResults!.data.data.isEmpty) {
+        debugPrint('No results found for city: $cityCode');
+      }
+    } catch (e) {
+      debugPrint('Error searching city: $e');
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error searching city: ${e.toString()}')),
+      );
+    } finally {
+      nearestHotelsController.setLoading(false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +132,11 @@ class _SearchHotelViewState extends State<SearchHotelView> {
                   color: Colors.grey,
                 ),
               ),
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  _searchCity(value);
+                }
+              },
             ),
           ),
           ListTile(
@@ -117,65 +166,40 @@ class _SearchHotelViewState extends State<SearchHotelView> {
                 ],
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.history, color: Colors.grey),
-              title: Text('Dubai'),
-              subtitle: Text('Dubai'),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Popular cities ',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: Colors.grey),
-              title: const Text('Dubai'),
-              onTap: () {
-                hotelBox.put('cityName', 'Dubai');
-                Get.offAll(() => const SearchHotelsPage());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: Colors.grey),
-              title: const Text('Manama, Bahrain, Bahrain'),
-              onTap: () {
-                hotelBox.put('cityName', 'Manama');
-                Get.offAll(() => const SearchHotelsPage());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: Colors.grey),
-              title: const Text('Cairo, Egypt'),
-              onTap: () {
-                hotelBox.put('cityName', 'Cairo');
-                Get.offAll(() => const SearchHotelsPage());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: Colors.grey),
-              title: const Text('Makkah, Western Province, Saudi Arabia'),
-              onTap: () {
-                hotelBox.put('cityName', 'Makkah');
-                Get.offAll(() => const SearchHotelsPage());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: Colors.grey),
-              title: const Text('Istanbul, Turkey'),
-              onTap: () {
-                hotelBox.put('cityName', 'Istanbul');
-                Get.offAll(() => const SearchHotelsPage());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on, color: Colors.grey),
-              title: const Text('Riyadh, Central Saudi Arabia, Saudi Arabia'),
-              onTap: () {
-                hotelBox.put('cityName', 'Riyadh');
-                Get.offAll(() => const SearchHotelsPage());
-              },
+            Expanded(
+              child: Obx(() {
+                if (nearestHotelsController.isLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                final searchResults =
+                    nearestHotelsController.searchResults?.data;
+                if (_searchController.text.isEmpty) {
+                  return _buildPopularCities();
+                }
+
+                if (searchResults == null || searchResults.data.isEmpty) {
+                  return const Center(child: Text("No cities found"));
+                }
+
+                return ListView.builder(
+                  itemCount: searchResults.data.length,
+                  itemBuilder: (context, index) {
+                    final city = searchResults.data[index];
+                    return ListTile(
+                      leading:
+                          const Icon(Icons.location_on, color: Colors.grey),
+                      title: Text(city.name),
+                      subtitle: Text(' ${city.hotelId}'),
+                      onTap: () {
+                        hotelBox.put('cityName', city.name);
+                        hotelBox.put('hotelId', city.hotelId);
+                        Get.offAll(() => const SearchHotelsPage());
+                      },
+                    );
+                  },
+                );
+              }),
             ),
           ] else ...[
             Expanded(
@@ -190,14 +214,22 @@ class _SearchHotelViewState extends State<SearchHotelView> {
                   itemBuilder: (context, index) {
                     final hotel = hotels[index];
                     return ListTile(
-                      leading: const Icon(Icons.hotel),
+                      leading: Container(
+                          width: 40,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(child: Text(hotel.iataCode))),
                       title: Text(hotel.name),
                       subtitle: Text(hotel.address.countryCode),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: List.generate(
                           hotel.rating,
-                          (index) => const Icon(Icons.star, size: 16, color: Colors.orange),
+                          (index) => const Icon(Icons.star,
+                              size: 16, color: Colors.orange),
                         ),
                       ),
                     );
@@ -211,8 +243,58 @@ class _SearchHotelViewState extends State<SearchHotelView> {
     );
   }
 
+  Widget _buildPopularCities() {
+    return ListView(
+      children: [
+        const ListTile(
+          leading: Icon(Icons.history, color: Colors.grey),
+          title: Text('Dubai'),
+          subtitle: Text('Dubai'),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Popular cities ',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.location_on, color: Colors.grey),
+          title: const Text('Dubai'),
+          onTap: () => _searchCity('DXB'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.location_on, color: Colors.grey),
+          title: const Text('Manama, Bahrain, Bahrain'),
+          onTap: () => _searchCity('BAH'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.location_on, color: Colors.grey),
+          title: const Text('Cairo, Egypt'),
+          onTap: () => _searchCity('CAI'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.location_on, color: Colors.grey),
+          title: const Text('Makkah, Western Province, Saudi Arabia'),
+          onTap: () => _searchCity('JED'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.location_on, color: Colors.grey),
+          title: const Text('Istanbul, Turkey'),
+          onTap: () => _searchCity('IST'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.location_on, color: Colors.grey),
+          title: const Text('Riyadh, Central Saudi Arabia, Saudi Arabia'),
+          onTap: () => _searchCity('RUH'),
+        ),
+      ],
+    );
+  }
+
   @override
   void dispose() {
+    _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
     super.dispose();
   }
