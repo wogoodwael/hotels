@@ -62,7 +62,6 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
   }
 
   Future<void> _getCurrentLocation() async {
-    
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -136,7 +135,6 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
-                    
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.location_on_outlined,
@@ -160,8 +158,6 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                       },
                     ),
                     const Divider(),
-
-                    
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.calendar_today_outlined,
@@ -209,16 +205,18 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                         ],
                       ),
                       onTap: () async {
-                        
+                        final now = DateTime.now();
                         DateTimeRange? dateRange = await showDateRangePicker(
                           context: context,
-                          firstDate: DateTime.now(),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 365)),
+                          firstDate: now,
+                          lastDate: now.add(const Duration(days: 365)),
                           initialDateRange: DateTimeRange(
-                            start: checkInDate ?? DateTime.now(),
-                            end: checkOutDate ??
-                                DateTime.now().add(const Duration(days: 1)),
+                            start: checkInDate?.isAfter(now) == true
+                                ? checkInDate!
+                                : now,
+                            end: checkOutDate?.isAfter(now) == true
+                                ? checkOutDate!
+                                : now.add(const Duration(days: 1)),
                           ),
                         );
 
@@ -236,14 +234,10 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                       },
                     ),
                     const Divider(),
-
                     const PassengerClassSection(
                       isHotel: true,
                     ),
-
                     const SizedBox(height: 10),
-
-                    
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -263,39 +257,37 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                           ),
                         ),
                         onPressed: () async {
-                          await hotelsOfferController.getHotelOffers(
-                            hotelId: Hive.box('hotelData').get('hotelId',
-                                defaultValue: nearestHotelsController
-                                    .hotels?.data.data.first.hotelId),
-                            adults: Hive.box('hotelData')
-                                .get('adults', defaultValue: 2),
-                            checkInDate: DateFormat('yyyy-MM-dd').format(
-                                DateTime.parse(Hive.box('hotelData').get(
-                                    'checkInDate',
-                                    defaultValue:
-                                        DateTime.now().toIso8601String()))),
-                            checkOutDate: DateFormat('yyyy-MM-dd').format(
-                                DateTime.parse(Hive.box('hotelData').get(
-                                    'checkOutDate',
-                                    defaultValue:
-                                        DateTime.now().toIso8601String()))),
-                          );
-                          print(
-                              "hotelOffers: ${Hive.box('hotelData').get('hotelId', defaultValue: nearestHotelsController.hotels?.data.data.first.hotelId)}");
-                          print(
-                              "adults: ${Hive.box('hotelData').get('adults', defaultValue: 2)}");
-                          print(
-                              "checkInDate: ${Hive.box('hotelData').get('checkInDate', defaultValue: '')}");
-                          print(
-                              "checkOutDate: ${Hive.box('hotelData').get('checkOutDate', defaultValue: '')}");
-                          Get.to(() => const NearByHotelView(isOffers: true));
+                          try {
+                            await hotelsOfferController.getHotelOffers(
+                              hotelId: Hive.box('hotelData').get('hotelId'),
+                              adults: Hive.box('hotelData')
+                                  .get('adults', defaultValue: 2),
+                              checkInDate: DateFormat('yyyy-MM-dd').format(
+                                  DateTime.parse(Hive.box('hotelData').get(
+                                      'checkInDate',
+                                      defaultValue:
+                                          DateTime.now().toIso8601String()))),
+                              checkOutDate: DateFormat('yyyy-MM-dd').format(
+                                  DateTime.parse(Hive.box('hotelData').get(
+                                      'checkOutDate',
+                                      defaultValue:
+                                          DateTime.now().toIso8601String()))),
+                            );
+
+                            Get.to(() => const NearByHotelView(isOffers: true));
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Error fetching hotel offers'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                            debugPrint('Error fetching hotel offers: $e');
+                          }
                         },
                       ),
                     ),
-
                     const SizedBox(height: 20),
-
-                    
                     InkWell(
                       onTap: () async {
                         await _getCurrentLocation();

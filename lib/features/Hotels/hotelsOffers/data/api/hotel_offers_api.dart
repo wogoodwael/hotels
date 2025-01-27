@@ -21,7 +21,8 @@ class HotelOffersApi {
         return HotelOffersModel.fromJson(json.decode(response.body));
       } else {
         final errorResponse = json.decode(response.body);
-        if (errorResponse['errors'] != null && errorResponse['errors'].isNotEmpty) {
+        if (errorResponse['errors'] != null &&
+            errorResponse['errors'].isNotEmpty) {
           final error = errorResponse['errors'][0];
           throw Exception('${error['title']}: ${error['detail']}');
         }

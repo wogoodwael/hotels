@@ -1,3 +1,5 @@
+import 'package:flights/features/Hotels/hotelsOffers/presentation/rooms_view.dart';
+import 'package:flights/features/Hotels/searchHotel/presentation/widgets/hotel_card.dart';
 import 'package:flights/utils/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -8,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../hotelsOffers/domain/hotels_offer_controller.dart';
+import 'widgets/properity_type_chip.dart';
 
 class NearByHotelView extends StatefulWidget {
   const NearByHotelView({super.key, required this.isOffers});
@@ -27,13 +30,15 @@ class _NearByHotelViewState extends State<NearByHotelView> {
   @override
   void initState() {
     super.initState();
-   
+    String hotelId = Hive.box('hotelData').get('hotelId', defaultValue: '');
+    print("Current hotelId: $hotelId");
+    print("offers controller: ${hotelsOfferController.error.value}");
+
     if (widget.isOffers) {
-      _getOffers();
     } else {
-     _getLocationName(); 
+      _getLocationName();
     }
-    
+
     String? checkInString =
         Hive.box('hotelData').get('checkInDate', defaultValue: null);
     String? checkOutString =
@@ -82,17 +87,6 @@ class _NearByHotelViewState extends State<NearByHotelView> {
     }
   }
 
-  Future<void> _getOffers() async {
-    await hotelsOfferController.getHotelOffers(
-      hotelId: Hive.box('hotelData').get('hotelId',
-          defaultValue:
-              nearestHotelsController.hotels?.data.data.first.hotelId),
-      adults: Hive.box('hotelData').get('adults', defaultValue: 2),
-      checkInDate: Hive.box('hotelData').get('checkInDate', defaultValue: ''),
-      checkOutDate: Hive.box('hotelData').get('checkOutDate', defaultValue: ''),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,7 +120,9 @@ class _NearByHotelViewState extends State<NearByHotelView> {
               children: [
                 InkWell(
                     onTap: () {
-                      print("city$locationName");
+                      String hotelId = Hive.box('hotelData')
+                          .get('hotelId', defaultValue: '');
+                      print("Current hotelId: $hotelId");
                     },
                     child: Icon(Icons.person_outline,
                         size: 20, color: Colors.grey[600])),
@@ -156,7 +152,6 @@ class _NearByHotelViewState extends State<NearByHotelView> {
       ),
       body: Column(
         children: [
-          
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.all(8),
@@ -219,8 +214,6 @@ class _NearByHotelViewState extends State<NearByHotelView> {
               ],
             ),
           ),
-
-          
           const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 8),
@@ -243,13 +236,22 @@ class _NearByHotelViewState extends State<NearByHotelView> {
               ],
             ),
           ),
-
-          
           const SizedBox(height: 10),
-          
           Expanded(
             child: Obx(() {
               if (widget.isOffers) {
+                if (hotelsOfferController.error.value.isNotEmpty) {
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.bed_outlined, size: 40, color: Colors.red),
+                        Text("No hotel offers found."),
+                      ],
+                    ),
+                  );
+                }
+
                 final hotelsOffers =
                     hotelsOfferController.hotelOffers.value?.data.data;
                 if (hotelsOffers == null || hotelsOffers.isEmpty) {
@@ -300,13 +302,42 @@ class _NearByHotelViewState extends State<NearByHotelView> {
                 fit: BoxFit.cover,
               );
             }
-            return HotelCard(
-              imageWidget: imageWidget,
-              name: hotelData.name,
-              location: widget.isOffers
-                  ? hotelData.type
-                  : hotelData.address.countryCode,
-              rating: widget.isOffers ? 5 : hotelData.rating,
+            return GestureDetector(
+              onTap: () {
+                if (widget.isOffers &&
+                    hotelsOffers != null &&
+                    hotelsOffers[index].offers.isNotEmpty) {
+                  final offer = hotelsOffers[index].offers.first;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RoomsView(
+                        hotelId: hotelData.hotelId,
+                        hotelName: offer.room.type ?? '',
+                        hotelDescription: offer.room.description?.text ?? '',
+                        hotelRating: widget.isOffers ? 5 : hotelData.rating,
+                        hotelImage:
+                            nearestHotelsController.hotelPhotos?[index] ??
+                                'https://via.placeholder.com/150',
+                        roomsLength: hotelsOffers[index].offers.length,
+                        adults: offer.guests.adults ?? 2,
+                        bedType:
+                            offer.room.typeEstimated?.bedType ?? 'King Size',
+                        price: double.tryParse(offer.price.total.toString()) ??
+                            0.0,
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: HotelCard(
+                imageWidget: imageWidget,
+                name: hotelData.name,
+                location: widget.isOffers
+                    ? hotelData.type
+                    : hotelData.address.countryCode,
+                rating: widget.isOffers ? 5 : hotelData.rating,
+              ),
             );
           },
         );
@@ -315,125 +346,4 @@ class _NearByHotelViewState extends State<NearByHotelView> {
   }
 }
 
-class PropertyTypeChip extends StatelessWidget {
-  final IconData icon;
-  final String label;
 
-  const PropertyTypeChip({
-    super.key,
-    required this.icon,
-    required this.label,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 20, color: Colors.blue),
-          const SizedBox(width: 8),
-          Text(label),
-        ],
-      ),
-    );
-  }
-}
-
-class HotelCard extends StatelessWidget {
-  final Widget imageWidget;
-  final String name;
-  final String location;
-  final int rating;
-
-  const HotelCard({
-    super.key,
-    required this.imageWidget,
-    required this.name,
-    required this.location,
-    required this.rating,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      width: .9 * MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(12)),
-                child: imageWidget,
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: IconButton(
-                  icon: const Icon(Icons.favorite_border),
-                  onPressed: () {},
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Text(' star property'),
-                    const Text(' • '),
-                    Text(location),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        ...List.generate(
-                            rating,
-                            (index) => const Icon(Icons.star,
-                                size: 16, color: Colors.orange)),
-                        const SizedBox(width: 4),
-                      ],
-                    ),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'Very good',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(' ($rating ratings)'),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

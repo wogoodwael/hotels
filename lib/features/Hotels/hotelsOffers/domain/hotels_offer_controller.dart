@@ -28,6 +28,12 @@ class HotelsOfferController extends GetxController {
         checkOutDate: checkOutDate,
       );
 
+      if (result.data.data.isEmpty && result.errors.isNotEmpty) {
+        final errorDetail = result.errors.first;
+        error.value = '${errorDetail.title}: ${errorDetail.detail}';
+        return;
+      }
+
       hotelOffers.value = result;
     } catch (e) {
       error.value = e.toString();
