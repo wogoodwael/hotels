@@ -7,7 +7,7 @@ class NearestRepo {
   NearestRepo({required this.nearestApi});
 
   Future<NearestModel> getNearestAirports({
-    required double latitude, 
+    required double latitude,
     required double longitude,
   }) async {
     try {
@@ -20,9 +20,10 @@ class NearestRepo {
       throw Exception('Repository Error: $e');
     }
   }
+
   Future<NearestModel> getNearestAirportsWithRadius({
     required double latitude,
-    required double longitude, 
+    required double longitude,
     required int radius,
   }) async {
     try {
@@ -36,5 +37,4 @@ class NearestRepo {
       throw Exception('Repository Error: $e');
     }
   }
-  
 }

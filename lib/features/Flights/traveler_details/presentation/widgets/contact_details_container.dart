@@ -5,13 +5,21 @@ import 'phone_number_container.dart';
 
 class ContactDetailsContainer extends StatelessWidget {
   const ContactDetailsContainer({
-    super.key, required this.postalCodeController, required this.countryCodeController, required this.countryCodePhoneController, required this.emailController, required this.phoneNumberController, required this.mobilePhoneNumberController, required this.invoiceAddressController, required this.mailingAddressController,
+    super.key,
+    required this.postalCodeController,
+    required this.countryCodeController,
+    required this.countryCodePhoneController,
+    required this.emailController,
+    required this.phoneNumberController,
+    required this.mobilePhoneNumberController,
+    required this.invoiceAddressController,
+    required this.mailingAddressController,
   });
   final TextEditingController postalCodeController;
   final TextEditingController countryCodeController;
   final TextEditingController countryCodePhoneController;
 
-  final TextEditingController emailController;  
+  final TextEditingController emailController;
   final TextEditingController phoneNumberController;
   final TextEditingController mobilePhoneNumberController;
   final TextEditingController invoiceAddressController;
@@ -24,9 +32,11 @@ class ContactDetailsContainer extends StatelessWidget {
         width: .9 * MediaQuery.sizeOf(context).width,
         child: Column(
           children: [
-            CustomTextField(labelText: "Postal Code*", controller: postalCodeController),
+            CustomTextField(
+                labelText: "Postal Code*", controller: postalCodeController),
             const SizedBox(height: 16),
-            CustomTextField(labelText: "Country Code*", controller: countryCodeController),
+            CustomTextField(
+                labelText: "Country Code*", controller: countryCodeController),
             const SizedBox(height: 16),
             CustomTextField(labelText: "Email*", controller: emailController),
             const Text(
@@ -34,8 +44,12 @@ class ContactDetailsContainer extends StatelessWidget {
               style: TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 16),
-             Column(
-              children: [PhoneNumberContainer(controller: countryCodePhoneController, phoneNumberController: phoneNumberController )],
+            Column(
+              children: [
+                PhoneNumberContainer(
+                    controller: countryCodePhoneController,
+                    phoneNumberController: phoneNumberController)
+              ],
             ),
           ],
         ),

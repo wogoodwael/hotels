@@ -20,7 +20,7 @@ class OrderController extends GetxController {
   static TextEditingController issuanceCountry = TextEditingController();
   static TextEditingController validityCountry = TextEditingController();
   static TextEditingController nationality = TextEditingController();
-  
+
   static final TextEditingController emailController = TextEditingController();
   static final TextEditingController phoneNumberController =
       TextEditingController();
@@ -36,14 +36,18 @@ class OrderController extends GetxController {
       TextEditingController();
   static final TextEditingController mailingAddressController =
       TextEditingController();
-  static final TextEditingController firstNameController = TextEditingController();
-  static final TextEditingController emailAdultController = TextEditingController();
-  static final TextEditingController lastNameController = TextEditingController();
-  static final TextEditingController countryCallingCodeAdultController = TextEditingController();
-  static final TextEditingController mobilePhoneNumberAdultController = TextEditingController();
+  static final TextEditingController firstNameController =
+      TextEditingController();
+  static final TextEditingController emailAdultController =
+      TextEditingController();
+  static final TextEditingController lastNameController =
+      TextEditingController();
+  static final TextEditingController countryCallingCodeAdultController =
+      TextEditingController();
+  static final TextEditingController mobilePhoneNumberAdultController =
+      TextEditingController();
   static var dateOfBirth = ''.obs;
 
-  
   static void clearControllers() {
     emailController.clear();
     phoneNumberController.clear();
@@ -55,7 +59,7 @@ class OrderController extends GetxController {
     mailingAddressController.clear();
     birthPlace.clear();
     issuanceLocation.clear();
-  
+
     number.clear();
 
     issuanceCountry.clear();
@@ -63,7 +67,6 @@ class OrderController extends GetxController {
     nationality.clear();
   }
 
-  
   @override
   void onClose() {
     emailController.dispose();
@@ -96,7 +99,6 @@ class OrderController extends GetxController {
         bookingRequirements: bookingRequirements,
       );
 
-      
       print('Order created successfully: $response');
       Get.to(() => const UpgradeExperienceScreen());
     } catch (e) {

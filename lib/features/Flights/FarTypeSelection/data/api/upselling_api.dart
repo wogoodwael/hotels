@@ -4,10 +4,9 @@ import '../models/upselling_model.dart';
 
 class UpsellingApi {
   final String baseUrl = 'https://iserve-uae.com/wisal_api/public/api';
-Future<UpsellingResponse> getUpsellingData(
+  Future<UpsellingResponse> getUpsellingData(
       Map<String, dynamic> selectedOffer, int offerId) async {
     try {
-      
       print("Serialized offer: ${jsonEncode(selectedOffer)}");
 
       final response = await http.post(
@@ -19,7 +18,7 @@ Future<UpsellingResponse> getUpsellingData(
         body: jsonEncode({
           "data": {
             "type": "flight-offers-upselling",
-            "flightOffers": [selectedOffer], 
+            "flightOffers": [selectedOffer],
             "payments": [
               {
                 "brand": "VISA_IXARIS",
@@ -42,5 +41,4 @@ Future<UpsellingResponse> getUpsellingData(
       rethrow;
     }
   }
-
 }

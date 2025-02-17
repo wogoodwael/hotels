@@ -8,16 +8,14 @@
 //   final String price;
 //   final bool isSelected;
 //   final int length;
- 
- 
+
 //   FareOption({
 //     super.key,
 //     required this.name,
 //     required this.price,
 //     required this.isSelected,
 //     required this.length,
-   
-   
+
 //   });
 //   final UpsellingController upsellingController = Get.find();
 
@@ -64,7 +62,7 @@
 //                     if (isSelected)
 //                       ElevatedButton(
 //                         onPressed: () {
-                        
+
 //                         },
 //                         style: ElevatedButton.styleFrom(
 //                           elevation: 0,

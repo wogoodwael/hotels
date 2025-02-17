@@ -28,7 +28,6 @@ class _SearchHotelViewState extends State<SearchHotelView> {
 
   void _onSearchChanged() {
     if (_searchController.text.isNotEmpty) {
-      
       Future.delayed(const Duration(milliseconds: 500), () {
         if (_searchController.text.isNotEmpty) {
           _searchCity(_searchController.text);
@@ -78,20 +77,18 @@ class _SearchHotelViewState extends State<SearchHotelView> {
       setState(() {
         showNearbyHotels = false;
       });
-      
-      
+
       nearestHotelsController.setLoading(true);
-      
+
       await nearestHotelsController.searchHotelsByCity(cityCode);
-      
-      
-      if (nearestHotelsController.searchResults?.data == null || 
+
+      if (nearestHotelsController.searchResults?.data == null ||
           nearestHotelsController.searchResults!.data.data.isEmpty) {
         debugPrint('No results found for city: $cityCode');
       }
     } catch (e) {
       debugPrint('Error searching city: $e');
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error searching city: ${e.toString()}')),
       );

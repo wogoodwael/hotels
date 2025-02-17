@@ -87,7 +87,8 @@ class FlightOfferUpSelling {
     this.travelerPricings,
   });
 
-  factory FlightOfferUpSelling.fromJson(Map<String, dynamic> json) => FlightOfferUpSelling(
+  factory FlightOfferUpSelling.fromJson(Map<String, dynamic> json) =>
+      FlightOfferUpSelling(
         type: json['type'],
         id: json['id'],
         source: json['source'],

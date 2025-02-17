@@ -5,7 +5,7 @@ import '../data/repo/nearest_repo.dart';
 
 class NearestHotelsController extends GetxController {
   final NearestHotelsRepo nearestHotelsRepo;
-  
+
   NearestHotelsController({required this.nearestHotelsRepo});
 
   final _isLoading = false.obs;
@@ -22,6 +22,7 @@ class NearestHotelsController extends GetxController {
   void setLoading(bool value) {
     _isLoading.value = value;
   }
+
   Future<void> getNearestHotels({
     required double latitude,
     required double longitude,
@@ -32,7 +33,7 @@ class NearestHotelsController extends GetxController {
     try {
       _isLoading.value = true;
       _error.value = '';
-      
+
       final result = await nearestHotelsRepo.getNearestHotels(
         latitude: latitude,
         longitude: longitude,
@@ -40,7 +41,7 @@ class NearestHotelsController extends GetxController {
         radiusUnit: radiusUnit,
         amenities: amenities,
       );
-      
+
       _hotels.value = result;
     } catch (e) {
       _error.value = e.toString();
@@ -70,7 +71,8 @@ class NearestHotelsController extends GetxController {
     }
   }
 
-  Future<void> fetchHotelPhotos(String baseUrl, String hotelId, double latitude, double longitude) async {
+  Future<void> fetchHotelPhotos(
+      String baseUrl, String hotelId, double latitude, double longitude) async {
     _isLoading.value = true;
     _error.value = '';
     try {
@@ -92,7 +94,8 @@ class NearestHotelsController extends GetxController {
     try {
       _isLoading.value = true;
       _error.value = '';
-      final result = await nearestHotelsRepo.searchHotelsByCity(cityCode: cityCode);
+      final result =
+          await nearestHotelsRepo.searchHotelsByCity(cityCode: cityCode);
       _searchResults.value = result;
     } catch (e) {
       _error.value = e.toString();

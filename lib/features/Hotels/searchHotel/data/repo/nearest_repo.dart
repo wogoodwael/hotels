@@ -48,8 +48,8 @@ class NearestHotelsRepo {
     } catch (e) {
       throw Exception('Repository Error: $e');
     }
-
   }
+
   Future<List<String>> fetchHotelPhotos({
     required String baseUrl,
     required String hotelId,
@@ -68,6 +68,7 @@ class NearestHotelsRepo {
       throw Exception('Repository Error: $e');
     }
   }
+
   Future<SearchCityModel> searchHotelsByCity({
     required String cityCode,
   }) async {

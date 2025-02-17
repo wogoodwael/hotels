@@ -215,7 +215,7 @@ class AddManuallyScreen extends StatelessWidget {
                     offersController.documents.add({});
                   }
                   offersController.documents[travelerIndex] = document;
-                  
+
                   Get.close(2);
                 },
                 style: ElevatedButton.styleFrom(

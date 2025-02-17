@@ -11,7 +11,6 @@ class FlightBookingScreen extends StatelessWidget {
   final bool nonStop;
   @override
   Widget build(BuildContext context) {
-    
     final sourceData = Hive.box('flightData').get('source');
     final destinationData = Hive.box('flightData').get('destination');
 

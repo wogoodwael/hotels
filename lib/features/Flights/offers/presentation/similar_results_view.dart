@@ -65,12 +65,15 @@ class _SimilarResultsViewState extends State<SimilarResultsView> {
                       },
                       child: FlightCardBody(
                         airlineLogo:
-                            offer.itineraries?[0].segments?[0].carrierLogo ?? "",
+                            offer.itineraries?[0].segments?[0].carrierLogo ??
+                                "",
                         airlineName: offer.validatingAirlineCodes?.first ?? "",
                         departureTime:
-                            offer.itineraries?[0].segments?[0].departure?.at ?? "",
+                            offer.itineraries?[0].segments?[0].departure?.at ??
+                                "",
                         arrivalTime:
-                            offer.itineraries?[0].segments?[0].arrival?.at ?? "",
+                            offer.itineraries?[0].segments?[0].arrival?.at ??
+                                "",
                         duration:
                             "${offer.itineraries?[0].durationData?.hours} hr ${offer.itineraries?[0].durationData?.minutes} min",
                         stops: (offer.itineraries?[0].segments?.length ?? 0) > 1

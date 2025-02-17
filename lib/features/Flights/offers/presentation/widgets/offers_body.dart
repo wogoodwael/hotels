@@ -83,7 +83,6 @@ class OffersBody extends StatelessWidget {
             }
 
             if (offersController.error.isNotEmpty) {
-             
               return const Center(child: Text("No offers available"));
             }
 

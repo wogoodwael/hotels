@@ -86,16 +86,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SectionTitle(title: 'Popular Package in Asia'),
+                        const SectionTitle(title: 'Popular Offers '),
                         const SizedBox(height: 10),
                         HorizontalList(),
-                        const SizedBox(height: 24),
-                        const SectionTitle(
-                            title: 'Expanding your trip around the world'),
-                        HorizontalList(),
-                        const SizedBox(height: 24),
-                        const SectionTitle(title: 'Travel beyond the boundary'),
-                        HorizontalList(),
+                        
                       ],
                     ),
                   ),

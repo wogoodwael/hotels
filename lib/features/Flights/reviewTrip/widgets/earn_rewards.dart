@@ -7,8 +7,6 @@ class EarnRewards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      
-
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 0,
       color: Colors.white,

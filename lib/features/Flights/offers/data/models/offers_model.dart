@@ -8,7 +8,6 @@ class OffersModel {
   });
 
   factory OffersModel.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return OffersModel(
@@ -30,7 +29,6 @@ class OffersData {
   });
 
   factory OffersData.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return OffersData(
@@ -54,7 +52,6 @@ class Meta {
   });
 
   factory Meta.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Meta(
@@ -72,7 +69,6 @@ class Links {
   });
 
   factory Links.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Links(
@@ -117,7 +113,6 @@ class FlightOffer {
   });
 
   factory FlightOffer.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return FlightOffer(
@@ -180,7 +175,6 @@ class Itinerary {
   });
 
   factory Itinerary.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Itinerary(
@@ -210,7 +204,6 @@ class DurationData {
   });
 
   factory DurationData.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return DurationData(
@@ -255,7 +248,6 @@ class Segment {
   });
 
   factory Segment.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Segment(
@@ -302,7 +294,6 @@ class Location {
   });
 
   factory Location.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Location(
@@ -327,7 +318,6 @@ class Aircraft {
   });
 
   factory Aircraft.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Aircraft(
@@ -348,7 +338,6 @@ class Operating {
   });
 
   factory Operating.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Operating(
@@ -377,7 +366,6 @@ class Price {
   });
 
   factory Price.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Price(
@@ -410,7 +398,6 @@ class Fee {
   });
 
   factory Fee.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Fee(
@@ -435,7 +422,6 @@ class PricingOptions {
   });
 
   factory PricingOptions.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return PricingOptions(
@@ -468,7 +454,6 @@ class TravelerPricing {
   });
 
   factory TravelerPricing.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return TravelerPricing(
@@ -509,7 +494,6 @@ class FareDetailsBySegment {
   });
 
   factory FareDetailsBySegment.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return FareDetailsBySegment(
@@ -541,7 +525,6 @@ class IncludedCheckedBags {
   });
 
   factory IncludedCheckedBags.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return IncludedCheckedBags(
@@ -570,7 +553,6 @@ class Dictionaries {
   });
 
   factory Dictionaries.fromJson(dynamic json) {
-    
     final Map<String, dynamic> typedJson = Map<String, dynamic>.from(json);
 
     return Dictionaries(

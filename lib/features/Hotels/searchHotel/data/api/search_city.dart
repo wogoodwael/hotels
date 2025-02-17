@@ -14,7 +14,6 @@ class SearchCityApi {
     String lang = 'en',
   }) async {
     try {
-    
 /**
  *   final queryParams = {
         'cityCode': cityCode,
@@ -26,7 +25,8 @@ class SearchCityApi {
  * .replace(
         queryParameters: queryParams,
       ); */
-      final uri = Uri.parse('$baseUrl/amadeus/hotels/list-by-city?cityCode=$cityCode&radius&radiusUnit&ratings=[5,2]&lang=ar');
+      final uri = Uri.parse(
+          '$baseUrl/amadeus/hotels/list-by-city?cityCode=$cityCode&radius&radiusUnit&ratings=[5,2]&lang=ar');
 
       final response = await http.get(uri);
 

@@ -5,7 +5,7 @@ import '../../FarTypeSelection/domain/upselling_controller.dart';
 
 class BaggageAllowance extends StatelessWidget {
   BaggageAllowance({super.key});
-final UpsellingController upsellingController = Get.find();
+  final UpsellingController upsellingController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,10 +31,18 @@ final UpsellingController upsellingController = Get.find();
               ],
             ),
             const SizedBox(height: 12),
-             ListView.builder(
+            ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: upsellingController.upsellingResponse.value.data?.data?[0].travelerPricings?[0].fareDetailsBySegment?[0].amenities?.length,
+              itemCount: upsellingController
+                  .upsellingResponse
+                  .value
+                  .data
+                  ?.data?[0]
+                  .travelerPricings?[0]
+                  .fareDetailsBySegment?[0]
+                  .amenities
+                  ?.length,
               itemBuilder: (context, index) {
                 final amenities = upsellingController
                     .upsellingResponse

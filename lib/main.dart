@@ -1,3 +1,6 @@
+import 'package:flights/features/Hotels/home/data/api/slider_api.dart';
+import 'package:flights/features/Hotels/home/data/repo/slider_repo.dart';
+import 'package:flights/features/Hotels/home/domain/slider_controller.dart';
 import 'package:flights/features/Hotels/hotelsOffers/domain/hotels_offer_controller.dart';
 import 'package:flights/features/Hotels/searchHotel/data/api/nearest_hotels_api.dart';
 import 'package:flights/features/Hotels/searchHotel/data/api/search_city.dart';
@@ -26,10 +29,11 @@ import 'features/Hotels/hotelsOffers/data/repo/hotel_offer_repo.dart';
 
 late final UpsellingController upsellingController;
 late final PriceController priceController;
-late final OrderController orderController; 
+late final OrderController orderController;
 late final OffersController offersController;
 late final NearestHotelsController nearestHotelsController;
 late final HotelsOfferController hotelsOfferController;
+late final SliderController sliderController;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -38,18 +42,21 @@ void main() async {
   await Hive.openBox('hotelData');
 
   upsellingController = Get.put(UpsellingController(
-    upsellingRepo: UpsellingRepo(upsellingApi: UpsellingApi())));
-  priceController = Get.put(PriceController(
-    priceRepo: PriceRepo(priceApi: PriceApi())));
-  orderController = Get.put(OrderController(
-    orderRepo: OrderRepo(orderApi: OrderApi())));
-  offersController = Get.put(OffersController(
-    offersRepo: OffersRepo(offersApi: OffersApi())));
+      upsellingRepo: UpsellingRepo(upsellingApi: UpsellingApi())));
+  priceController =
+      Get.put(PriceController(priceRepo: PriceRepo(priceApi: PriceApi())));
+  orderController =
+      Get.put(OrderController(orderRepo: OrderRepo(orderApi: OrderApi())));
+  offersController =
+      Get.put(OffersController(offersRepo: OffersRepo(offersApi: OffersApi())));
   nearestHotelsController = Get.put(NearestHotelsController(
-    nearestHotelsRepo: NearestHotelsRepo(nearestHotelsApi: NearestHotelsApi(), searchCityApi: SearchCityApi())));
+      nearestHotelsRepo: NearestHotelsRepo(
+          nearestHotelsApi: NearestHotelsApi(),
+          searchCityApi: SearchCityApi())));
   hotelsOfferController = Get.put(HotelsOfferController(
-    hotelsOfferRepo: HotelsOfferRepo(hotelsOfferApi: HotelOffersApi())));
-
+      hotelsOfferRepo: HotelsOfferRepo(hotelsOfferApi: HotelOffersApi())));
+  sliderController =
+      Get.put(SliderController(sliderRepo: SliderRepo(sliderApi: SliderApi())));
 
   runApp(const SearchFlightsApp());
 }

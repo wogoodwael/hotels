@@ -7,7 +7,7 @@
 //   const FareTypeSelection({
 //     super.key,
 //     required this.lenght,
-//     required this.travelerPricings, 
+//     required this.travelerPricings,
 //   });
 //   final int lenght;
 //   final List<TravelerPricingUpSelling> travelerPricings;
@@ -31,7 +31,7 @@
 //                 name: travelerPricings[index].fareOption ?? "",
 //                 price: travelerPricings[index].price?.base ?? "",
 //                 isSelected: true,
-//                 length: lenght, 
+//                 length: lenght,
 //               );
 //             }),
 //           ),

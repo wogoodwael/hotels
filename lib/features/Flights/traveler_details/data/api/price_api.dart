@@ -10,7 +10,7 @@ class PriceApi {
       final response = await http.post(
         Uri.parse('$baseUrl/amadeus/flight/price?include=other-services'),
         headers: {
-         'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
         body: jsonEncode({

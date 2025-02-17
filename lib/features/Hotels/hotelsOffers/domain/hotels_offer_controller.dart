@@ -6,7 +6,7 @@ class HotelsOfferController extends GetxController {
   final HotelsOfferRepo hotelsOfferRepo;
 
   HotelsOfferController({required this.hotelsOfferRepo});
-  
+
   final Rx<HotelOffersModel?> hotelOffers = Rx<HotelOffersModel?>(null);
   final RxBool isLoading = false.obs;
   final RxString error = ''.obs;
@@ -14,13 +14,13 @@ class HotelsOfferController extends GetxController {
   Future<void> getHotelOffers({
     required String hotelId,
     required int adults,
-    required String checkInDate, 
+    required String checkInDate,
     required String checkOutDate,
   }) async {
     try {
       isLoading.value = true;
       error.value = '';
-      
+
       final result = await hotelsOfferRepo.getHotelOffers(
         hotelId: hotelId,
         adults: adults,

@@ -14,7 +14,7 @@ class RoundTripTab extends StatefulWidget {
 class _RoundTripTabState extends State<RoundTripTab> {
   @override
   Widget build(BuildContext context) {
-  bool nonStop = false;
+    bool nonStop = false;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -31,7 +31,9 @@ class _RoundTripTabState extends State<RoundTripTab> {
                 children: [
                   const SizedBox(height: 10),
                   const FlightDetailsSection(),
-                  const PassengerClassSection(isHotel: false,),
+                  const PassengerClassSection(
+                    isHotel: false,
+                  ),
                   const Divider(
                     indent: 30,
                     endIndent: 10,
@@ -48,7 +50,7 @@ class _RoundTripTabState extends State<RoundTripTab> {
                     controlAffinity: ListTileControlAffinity.leading,
                     side: const BorderSide(color: Colors.grey),
                   ),
-                   SearchButton(nonStop: nonStop),
+                  SearchButton(nonStop: nonStop),
                   const SizedBox(height: 10),
                 ],
               ),

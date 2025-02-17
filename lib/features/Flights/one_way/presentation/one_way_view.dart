@@ -30,10 +30,9 @@ class _OneWayTabState extends State<OneWayTab> {
     final destination = Hive.box('flightData').get('destination');
 
     setState(() {
-      sourceData = source != null 
-          ? Map<String, dynamic>.from(source as Map) 
-          : null;
-      destinationData = destination != null 
+      sourceData =
+          source != null ? Map<String, dynamic>.from(source as Map) : null;
+      destinationData = destination != null
           ? Map<String, dynamic>.from(destination as Map)
           : null;
     });
@@ -59,7 +58,9 @@ class _OneWayTabState extends State<OneWayTab> {
                   children: [
                     const SizedBox(height: 10),
                     const FlightDetailsSection(),
-                    const PassengerClassSection(isHotel: false,),
+                    const PassengerClassSection(
+                      isHotel: false,
+                    ),
                     const Divider(
                       indent: 30,
                       endIndent: 10,
@@ -79,7 +80,7 @@ class _OneWayTabState extends State<OneWayTab> {
                       controlAffinity: ListTileControlAffinity.leading,
                       side: const BorderSide(color: Colors.grey),
                     ),
-                     SearchButton(nonStop: nonStop),
+                    SearchButton(nonStop: nonStop),
                     const SizedBox(height: 10),
                   ],
                 ),

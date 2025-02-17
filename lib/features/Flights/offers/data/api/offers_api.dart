@@ -51,7 +51,6 @@ class OffersApi {
           throw Exception('No offers foundttt');
         }
 
-        
         final flightData = decodedResponse['data']['data'];
         if (flightData == null || (flightData as List).isEmpty) {
           return OffersModel.fromJson({

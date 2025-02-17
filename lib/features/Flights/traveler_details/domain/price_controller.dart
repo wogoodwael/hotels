@@ -11,7 +11,7 @@ class PriceController extends GetxController {
 
   PriceController({required this.priceRepo});
 
-  Future<void> getPrice(Map<String, dynamic> flightOffer) async { 
+  Future<void> getPrice(Map<String, dynamic> flightOffer) async {
     isLoading.value = true;
     errorMessage.value = '';
     try {

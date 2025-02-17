@@ -16,7 +16,6 @@ class ScanIDScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            
             Stack(
               alignment: Alignment.center,
               children: [
@@ -43,8 +42,6 @@ class ScanIDScreen extends StatelessWidget {
                 ),
               ],
             ),
-
-            
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -103,8 +100,6 @@ class ScanIDScreen extends StatelessWidget {
                 ],
               ),
             ),
-
-            
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: Column(
@@ -135,7 +130,8 @@ class ScanIDScreen extends StatelessWidget {
                   Center(
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Get.to(() => AddManuallyScreen(travelerIndex: travelerIndex));
+                        Get.to(() =>
+                            AddManuallyScreen(travelerIndex: travelerIndex));
                       },
                       icon: const Icon(
                         Icons.add_circle_outline,

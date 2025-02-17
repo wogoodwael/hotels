@@ -269,7 +269,8 @@ class Variations {
   factory Variations.fromJson(Map<String, dynamic> json) {
     return Variations(
       average: Average.fromJson(json['average']),
-      changes: (json['changes'] as List).map((x) => Change.fromJson(x)).toList(),
+      changes:
+          (json['changes'] as List).map((x) => Change.fromJson(x)).toList(),
     );
   }
 }

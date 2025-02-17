@@ -4,7 +4,7 @@ import '../data/repo/search_city_name_repo.dart';
 
 class SearchCityNameController extends GetxController {
   final SearchCityNameRepo searchCityNameRepo;
-  final searchResults =Rxn<NearestModel>();
+  final searchResults = Rxn<NearestModel>();
   final RxBool isLoading = false.obs;
   final RxString error = ''.obs;
 
@@ -14,10 +14,9 @@ class SearchCityNameController extends GetxController {
     try {
       isLoading.value = true;
       error.value = '';
-      
+
       final result = await searchCityNameRepo.searchCityName(keyword);
       searchResults.value = result;
-      
     } catch (e) {
       error.value = e.toString();
     } finally {

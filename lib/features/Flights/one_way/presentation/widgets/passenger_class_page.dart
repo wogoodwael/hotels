@@ -22,8 +22,9 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
   @override
   void initState() {
     super.initState();
-    _flightBox = widget.isHotel ? Hive.box('hotelData') : Hive.box('flightData');
-    
+    _flightBox =
+        widget.isHotel ? Hive.box('hotelData') : Hive.box('flightData');
+
     adults = _flightBox.get('adults', defaultValue: 2);
     children = _flightBox.get('children', defaultValue: 1);
     infants = _flightBox.get('infants', defaultValue: 1);
@@ -51,8 +52,12 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
     _flightBox.put('children', children);
     _flightBox.put('infants', infants);
     _flightBox.put('cabinClass', cabinClass);
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => widget.isHotel ? const SearchHotelsPage() : const SearchFlightsPage()));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => widget.isHotel
+                ? const SearchHotelsPage()
+                : const SearchFlightsPage()));
   }
 
   @override
@@ -72,7 +77,6 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            
             Container(
                 width: .9 * MediaQuery.of(context).size.width,
                 height: .36 * MediaQuery.of(context).size.height,
@@ -106,43 +110,40 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
                   ],
                 )),
             const SizedBox(height: 15),
-            if(!widget.isHotel)
-            
-            Container(
-              width: .9 * MediaQuery.of(context).size.width,
-              height: .36 * MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey)),
-              child: Column(
-                children: [
-                  Container(
-                    width: .9 * MediaQuery.sizeOf(context).width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      color: Colors.grey.withOpacity(.1),
-                    ),
-                    child: const ListTile(
-                      title: Text(
-                        'Cabin class',
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w500),
+            if (!widget.isHotel)
+              Container(
+                width: .9 * MediaQuery.of(context).size.width,
+                height: .36 * MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey)),
+                child: Column(
+                  children: [
+                    Container(
+                      width: .9 * MediaQuery.sizeOf(context).width,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)),
+                        color: Colors.grey.withOpacity(.1),
                       ),
-                      leading: Icon(Icons.chair_alt_rounded),
+                      child: const ListTile(
+                        title: Text(
+                          'Cabin class',
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                        leading: Icon(Icons.chair_alt_rounded),
+                      ),
                     ),
-                  ),
-                  buildRadioOption('Economy'),
-                  buildRadioOption('Premium Economy'),
-                  buildRadioOption('Business'),
-                  buildRadioOption('First'),
-                ],
+                    buildRadioOption('Economy'),
+                    buildRadioOption('Premium Economy'),
+                    buildRadioOption('Business'),
+                    buildRadioOption('First'),
+                  ],
+                ),
               ),
-            ),
-
-            
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: _saveToHive,

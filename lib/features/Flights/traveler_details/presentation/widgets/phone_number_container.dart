@@ -3,53 +3,53 @@ import 'package:flutter/material.dart';
 
 class PhoneNumberContainer extends StatelessWidget {
   const PhoneNumberContainer({
-    super.key,  this.controller,  this.phoneNumberController,
+    super.key,
+    this.controller,
+    this.phoneNumberController,
   });
-  final TextEditingController ?controller;
-  final TextEditingController ?phoneNumberController;
+  final TextEditingController? controller;
+  final TextEditingController? phoneNumberController;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-       Expanded(
-                flex: 1,
-                child: Container(
-                  width: 200,
-                  height: 55,
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(5),
+        Expanded(
+          flex: 1,
+          child: Container(
+            width: 200,
+            height: 55,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                showCountryPicker(
+                  context: context,
+                  onSelect: (Country country) {
+                    controller?.text = country.phoneCode;
+                    print('Selected country: ${country.phoneCode}');
+                  },
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    controller?.text ?? '+966',
+                    style: TextStyle(fontSize: 17),
                   ),
-                  child: GestureDetector(
-                    onTap: () {
-                      showCountryPicker(
-                        context: context,
-                        onSelect: (Country country) {
-                          controller?.text = country.phoneCode;
-                          print('Selected country: ${country.phoneCode}');
-                        },
-                      );
-                    },
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          controller?.text ?? '+966',
-                          style: TextStyle(fontSize: 17),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: Colors.teal,
-                        ),
-                      ],
-                    ),
+                  Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: Colors.teal,
                   ),
-                ),
+                ],
               ),
-            
-      SizedBox(width: 10),
-    
+            ),
+          ),
+        ),
+        SizedBox(width: 10),
         Expanded(
           flex: 2,
           child: TextField(

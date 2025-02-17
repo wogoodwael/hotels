@@ -345,5 +345,3 @@ class _NearByHotelViewState extends State<NearByHotelView> {
     );
   }
 }
-
-

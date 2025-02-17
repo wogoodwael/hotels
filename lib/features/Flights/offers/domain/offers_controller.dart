@@ -125,7 +125,8 @@ class OffersController extends GetxController {
     return Map<String, dynamic>.from(data as Map);
   }
 
-  String? get _departureDate => Hive.box('flightData').get('departureDate') as String?;
+  String? get _departureDate =>
+      Hive.box('flightData').get('departureDate') as String?;
 
   @override
   void onInit() {

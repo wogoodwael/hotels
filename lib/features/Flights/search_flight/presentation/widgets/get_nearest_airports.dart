@@ -13,7 +13,6 @@ Column GetNearestAirports(
     void Function(double radius) getCurrentLocation,
     double radius,
     bool isdestination) {
-  
   final flightBox = Hive.box('flightData');
 
   Future<void> handleAirportSelection(

@@ -30,7 +30,6 @@ class _ReviewTripScreenState extends State<ReviewTripScreen> {
       upsellingRepo: UpsellingRepo(upsellingApi: UpsellingApi())));
   @override
   void initState() {
-    
     super.initState();
     fetechData();
   }
@@ -58,7 +57,7 @@ class _ReviewTripScreenState extends State<ReviewTripScreen> {
             child: CircularProgressIndicator(),
           );
         }
-        if (upsellingController.errorMessage.value.isNotEmpty ) {
+        if (upsellingController.errorMessage.value.isNotEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

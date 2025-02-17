@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+
 //*need to refactor this
 class TripSegment extends StatelessWidget {
   final String time,
@@ -28,7 +29,6 @@ class TripSegment extends StatelessWidget {
     required this.carrierCode,
   });
 
-  
   Widget _buildDotDivider({double height = 60, Color? color}) {
     return SizedBox(
       height: height,

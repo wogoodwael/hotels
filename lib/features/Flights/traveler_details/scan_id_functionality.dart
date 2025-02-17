@@ -8,19 +8,19 @@
 // }
 
 // class _ScanIDFunctionalityState extends State<ScanIDFunctionality> {
-  
+
 //   late TextRecognizer textRecognizer;
-//   List<String> capturedTexts = []; 
+//   List<String> capturedTexts = [];
 
 //   @override
 //   void initState() {
 //     super.initState();
-    
+
 //     textRecognizer = GoogleMlKit.vision.textRecognizer();
 //   }
 
 //   Future<void> scanID() async {
-    
+
 //     final ImagePicker picker = ImagePicker();
 //     final XFile? image = await picker.pickImage(source: ImageSource.camera);
 
@@ -34,18 +34,15 @@
 //       final RecognizedText recognizedText =
 //           await textRecognizer.processImage(inputImage);
 
-      
 //       capturedTexts.clear();
-      
-      
+
 //       for (TextBlock block in recognizedText.blocks) {
-        
+
 //         if (_isValidText(block.text)) {
 //           capturedTexts.add(block.text);
 //           print('Recognized Block: ${block.text}');
 //         }
 
-        
 //         for (TextLine line in block.lines) {
 //           if (_isValidText(line.text)) {
 //             capturedTexts.add(line.text);
@@ -53,8 +50,7 @@
 //           }
 //         }
 //       }
-      
-      
+
 //       setState(() {});
 //     } catch (e) {
 //       print('Text recognition error: $e');
@@ -64,24 +60,19 @@
 //     }
 //   }
 
-  
 //   bool _isValidText(String text) {
-    
+
 //     text = text.trim();
 //     if (text.isEmpty) return false;
 
-    
-//     return 
-      
+//     return
+
 //       RegExp(r'^[0-9]+$').hasMatch(text) ||
-      
-      
+
 //       RegExp(r'^[A-Za-z\s]+$').hasMatch(text) ||
-      
-      
+
 //       RegExp(r'^[\u0600-\u06FF\s]+$').hasMatch(text) ||
-      
-      
+
 //       RegExp(r'^[A-Za-z0-9\u0600-\u06FF\s]+$').hasMatch(text);
 //   }
 
@@ -97,7 +88,7 @@
 //             child: Text('Start Scanning'),
 //           ),
 //           const SizedBox(height: 20),
-          
+
 //           Expanded(
 //             child: ListView.builder(
 //               itemCount: capturedTexts.length,
@@ -119,16 +110,15 @@
 //     );
 //   }
 
-  
 //   Color _getTextColor(String text) {
 //     if (RegExp(r'^[0-9]+$').hasMatch(text)) {
-//       return Colors.blue; 
+//       return Colors.blue;
 //     } else if (RegExp(r'^[A-Za-z\s]+$').hasMatch(text)) {
-//       return Colors.green; 
+//       return Colors.green;
 //     } else if (RegExp(r'^[\u0600-\u06FF\s]+$').hasMatch(text)) {
-//       return Colors.red; 
+//       return Colors.red;
 //     }
-//     return Colors.black; 
+//     return Colors.black;
 //   }
 
 //   @override

@@ -25,7 +25,7 @@ class _FlightDetailsSectionState extends State<FlightDetailsSection> {
   @override
   void initState() {
     super.initState();
-    
+
     _loadFlightData();
   }
 
@@ -46,7 +46,6 @@ class _FlightDetailsSectionState extends State<FlightDetailsSection> {
       sourceData = destinationData;
       destinationData = temp;
 
-      
       Hive.box('flightData').put('source', sourceData);
       Hive.box('flightData').put('destination', destinationData);
     });
