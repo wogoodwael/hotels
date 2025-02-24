@@ -1,13 +1,12 @@
+import 'package:flights/features/Flights/offers/domain/offers_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-
-import '../../../../../main.dart';
 import '../../domain/order-controller.dart';
 import '../../domain/price_controller.dart';
 
 class ContinueBottomSheet extends StatelessWidget {
-  const ContinueBottomSheet({
+  ContinueBottomSheet({
     super.key,
     required this.adultAdded,
     required this.priceController,
@@ -25,6 +24,8 @@ class ContinueBottomSheet extends StatelessWidget {
   final List<Map<String, dynamic>> travelers;
   final List<Map<String, dynamic>> contacts;
   final Map<String, dynamic> ticketingAgreement;
+  final offersController = Get.find<OffersController>();
+  final orderController = Get.find<OrderController>();
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +146,7 @@ class ContinueBottomSheet extends StatelessWidget {
                     ticketingAgreement: ticketingAgreement,
                     bookingRequirements: bookingRequirements,
                   );
+                 
                 } catch (e) {
                   Get.showSnackbar(const GetSnackBar(
                     title: 'error',

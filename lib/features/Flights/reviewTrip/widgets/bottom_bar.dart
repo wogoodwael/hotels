@@ -1,5 +1,5 @@
 import 'package:flights/features/Flights/FarTypeSelection/domain/upselling_controller.dart';
-import 'package:flights/main.dart';
+import 'package:flights/features/Flights/traveler_details/domain/price_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +10,7 @@ class BottomBar extends StatelessWidget {
     super.key,
     required this.flightOffer,
   });
-
+  final priceController = Get.find<PriceController>();
   final UpsellingController upsellingController = Get.find();
   final Map<String, dynamic> flightOffer;
   @override

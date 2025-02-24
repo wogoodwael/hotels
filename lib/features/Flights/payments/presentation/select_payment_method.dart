@@ -1,5 +1,5 @@
-import 'package:flights/features/Flights/payments/presentation/payment_view.dart';
 import 'package:flights/features/Flights/payments/presentation/pay_using_points.dart';
+import 'package:flights/features/Flights/payments/presentation/payment_view.dart';
 import 'package:flights/features/Flights/payments/presentation/widgets/cards_row.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,7 +90,7 @@ class SelectPaymentMethodScreen extends StatelessWidget {
       ),
       bottomSheet: Container(
           width: MediaQuery.sizeOf(context).width,
-          height: 50,
+          height: 70,
           color: Colors.white,
           child: const CardsRow()),
     );

@@ -1,3 +1,5 @@
+import 'package:flights/features/Hotels/hotelsOffers/domain/hotels_offer_controller.dart';
+import 'package:flights/features/Hotels/searchHotel/domain/nearest_hotels_controller.dart';
 import 'package:flights/features/Hotels/searchHotel/presentation/nearby_hotel_view.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -5,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../main.dart';
 import '../../../Flights/one_way/presentation/widgets/passenget_section.dart';
 import 'search_hotel_view.dart';
 
@@ -25,6 +26,8 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
   DateTime? checkOutDate;
   String? cityName;
   String? guests;
+  final nearestHotelsController = Get.find<NearestHotelsController>();
+  final hotelsOfferController = Get.find<HotelsOfferController>();
 
   @override
   void initState() {

@@ -1,10 +1,7 @@
-import 'package:flights/features/Flights/search_flight/data/repo/nearest_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
-import '../data/api/nearest_api.dart';
-import '../data/api/search_city_name.dart';
-import '../data/repo/search_city_name_repo.dart';
+
 import '../domain/nearest_controller.dart';
 import '../domain/search_city_name_controller.dart';
 import 'widgets/get_nearest_airports.dart';
@@ -18,15 +15,8 @@ class SearchFlightView extends StatefulWidget {
 
 class _SearchFlightViewState extends State<SearchFlightView> {
   final TextEditingController _searchController = TextEditingController();
-  final NearestController _nearestController = Get.put(
-    NearestController(nearestRepo: NearestRepo(nearestApi: NearestApi())),
-  );
-  final SearchCityNameController _searchCityNameController = Get.put(
-    SearchCityNameController(
-      searchCityNameRepo:
-          SearchCityNameRepo(searchCityNameApi: SearchCityNameApi()),
-    ),
-  );
+  final nearestController = Get.find<NearestController>();
+  final searchCityNameController = Get.find<SearchCityNameController>();
 
   @override
   void initState() {
@@ -50,7 +40,7 @@ class _SearchFlightViewState extends State<SearchFlightView> {
         desiredAccuracy: LocationAccuracy.high,
       );
 
-      await _nearestController.getNearestAirportsWithRadius(
+      await nearestController.getNearestAirportsWithRadius(
         latitude: position.latitude,
         longitude: position.longitude,
         radius: radius.toInt(),
@@ -76,7 +66,7 @@ class _SearchFlightViewState extends State<SearchFlightView> {
         desiredAccuracy: LocationAccuracy.high,
       );
 
-      await _nearestController.getNearestAirports(
+      await nearestController.getNearestAirports(
         latitude: position.latitude,
         longitude: position.longitude,
       );
@@ -92,8 +82,8 @@ class _SearchFlightViewState extends State<SearchFlightView> {
       body: GetNearestAirports(
         context,
         _searchController,
-        _searchCityNameController,
-        _nearestController,
+        searchCityNameController,
+        nearestController,
         _getCurrentLocationWithRadius,
         100, // Default radius of 100km
         widget.isdestination,

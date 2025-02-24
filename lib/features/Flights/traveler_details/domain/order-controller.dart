@@ -17,6 +17,7 @@ class OrderController extends GetxController {
   static var issuanceDate = ''.obs;
   static TextEditingController number = TextEditingController();
   static var expiryDate = ''.obs;
+  RxString url = RxString("");
   static TextEditingController issuanceCountry = TextEditingController();
   static TextEditingController validityCountry = TextEditingController();
   static TextEditingController nationality = TextEditingController();
@@ -100,7 +101,11 @@ class OrderController extends GetxController {
       );
 
       print('Order created successfully: $response');
-      Get.to(() => const UpgradeExperienceScreen());
+      url.value = response['data']['url'];
+      print("Urlllllll ${url.value}");
+      Get.to(() => UpgradeExperienceScreen(
+            url: url.value,
+          ));
     } catch (e) {
       error.value = e.toString();
       print('Error creating order: $e');

@@ -1,12 +1,13 @@
+import 'package:flights/features/Hotels/home/domain/slider_controller.dart';
 import 'package:flights/features/Hotels/home/home_offers_details.dart';
-import 'package:flights/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class HorizontalList extends StatelessWidget {
-  const HorizontalList({super.key});
+  HorizontalList({super.key});
+  final sliderController = Get.find<SliderController>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +27,9 @@ class HorizontalList extends StatelessWidget {
 
 class HorizontalListItem extends StatelessWidget {
   final int index;
+  final sliderController = Get.find<SliderController>();
 
-  const HorizontalListItem({super.key, required this.index});
+   HorizontalListItem({super.key, required this.index});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

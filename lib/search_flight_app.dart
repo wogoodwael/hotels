@@ -1,4 +1,4 @@
-import 'package:flights/features/Flights/search_flight/presentation/search_flight_taps.dart';
+import 'package:flights/utils/bindings/initial_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +9,9 @@ class SearchFlightsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return  GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialBinding: InitialBindings(),
       home: HomeScreen(),
     );
   }
