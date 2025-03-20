@@ -23,7 +23,7 @@ class ScanIDScreen extends StatelessWidget {
                   height: 300,
                   color: Colors.grey.shade200,
                 ),
-                const Column(
+                 Column(
                   children: [
                     Icon(
                       Icons.document_scanner,
@@ -32,7 +32,7 @@ class ScanIDScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Scan traveller ID',
+                      'Scan traveller ID'.tr,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -47,8 +47,8 @@ class ScanIDScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Use your passport or GCC National ID to quickly and securely auto-fill traveller details.",
+                   Text(
+                    "Use your passport or GCC National ID to quickly and securely auto-fill traveller details.".tr,
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
@@ -62,7 +62,7 @@ class ScanIDScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          "Make sure to scan the side with the ID code displayed (shown above).",
+                          "Make sure to scan the side with the ID code displayed (shown above).".tr,
                           style: TextStyle(
                               fontSize: 14, color: Colors.grey.shade700),
                         ),
@@ -76,7 +76,7 @@ class ScanIDScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          "We'll need access to your camera to be able to scan the document.",
+                          "We'll need access to your camera to be able to scan the document.".tr,
                           style: TextStyle(
                               fontSize: 14, color: Colors.grey.shade700),
                         ),
@@ -113,8 +113,8 @@ class ScanIDScreen extends StatelessWidget {
                         Icons.document_scanner_outlined,
                         color: Colors.white,
                       ),
-                      label: const Text(
-                        "Scan ID ",
+                      label:  Text(
+                        "Scan ID ".tr,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
@@ -137,8 +137,8 @@ class ScanIDScreen extends StatelessWidget {
                         Icons.add_circle_outline,
                         color: Colors.teal,
                       ),
-                      label: const Text(
-                        "Add manually",
+                      label:  Text(
+                        "Add manually".tr,
                         style: TextStyle(
                             color: Colors.teal,
                             fontSize: 17,

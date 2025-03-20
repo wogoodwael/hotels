@@ -57,8 +57,8 @@ class BottomBar extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
             ),
-            child: const Text(
-              'Continue',
+            child:  Text(
+              'Continue'.tr,
               style: TextStyle(color: Colors.white),
             ),
           ),

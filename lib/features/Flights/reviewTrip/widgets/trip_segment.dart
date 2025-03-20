@@ -1,4 +1,6 @@
+import 'package:dashed_line/dashed_line.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +16,7 @@ class TripSegment extends StatelessWidget {
       carrierLogo,
       carrierCode;
   final bool isCircle;
+  final double height;
 
   const TripSegment({
     super.key,
@@ -27,83 +30,86 @@ class TripSegment extends StatelessWidget {
     required this.isCircle,
     required this.carrierLogo,
     required this.carrierCode,
+    required this.height,
   });
 
-  Widget _buildDotDivider({double height = 60, Color? color}) {
+  Widget _buildDotDivider({Color? color}) {
     return SizedBox(
       height: height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(
-          10,
-          (_) => Container(
-            width: 2,
-            height: 2,
-            decoration: BoxDecoration(
-              color: color ?? Colors.grey.withOpacity(0.5),
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
+      width: 20,
+      child: DashedLine(
+        path: Path()
+          ..moveTo(0, 0)
+          ..lineTo(0, height),
+        color: color ?? Colors.grey.withOpacity(0.5),
+        dashLength: 2,
+        width: 2,
+        dashSpace: 4,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-                width: .15 * MediaQuery.sizeOf(context).width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      DateFormat('h:mm \n a')
-                          .format(DateFormat.jm().parse(time)),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 13),
-                    ),
-                  ],
-                )),
-            Padding(
-              padding: const EdgeInsets.only(left: 11),
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.circle,
-                    color: Colors.teal,
-                    size: 10,
-                  ),
-                  _buildDotDivider(
-                      height: 50, color: Colors.teal.withOpacity(0.5))
-                ],
+        Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            spacing: 10,
+            children: [
+              SizedBox(
+                  width: .15 * MediaQuery.sizeOf(context).width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        DateFormat('h:mm \n a')
+                            .format(DateFormat.jm().parse(time)),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 13),
+                      ),
+                    ],
+                  )),
+              const SizedBox(
+                height: 5,
               ),
-            ),
-            const SizedBox(width: 10),
-            Text(location),
-          ],
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+              Text(
+                DateFormat('dd MMM').format(DateTime.tryParse(
+                        Hive.box('flightData').get('departureDate') ?? "") ??
+                    DateTime.now()),
+                style: const TextStyle(color: Colors.grey),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              isCircle
+                  ? SizedBox(
+                      width: .14 * MediaQuery.sizeOf(context).width,
+                      child: Text(duration,
+                          style: const TextStyle(
+                              color: Colors.grey, fontSize: 13)),
+                    )
+                  : Container(
+                      width: 45,
+                      height: 30,
+                      decoration:
+                          BoxDecoration(color: Colors.teal.withOpacity(.1)),
+                      child: Center(
+                        child: Text(duration,
+                            style: const TextStyle(
+                                color: Colors.green, fontSize: 11)),
+                      ),
+                    ),
+            ]),
+        _buildDotDivider(color: Colors.teal.withOpacity(0.5)),
+        Column(
+          spacing: 10,
           children: [
-            Text(
-              DateFormat('dd MMM').format(DateTime.tryParse(
-                      Hive.box('flightData').get('departureDate') ?? "") ??
-                  DateTime.now()),
-              style: const TextStyle(color: Colors.grey),
-            ),
-            SizedBox(
-              width: .067 * MediaQuery.sizeOf(context).width,
-            ),
-            _buildDotDivider(height: 60, color: Colors.teal.withOpacity(0.5)),
-            SizedBox(
-              width: .07 * MediaQuery.sizeOf(context).width,
+            Text(location),
+            const SizedBox(
+              height: 10,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,41 +120,36 @@ class TripSegment extends StatelessWidget {
                   style: const TextStyle(color: Colors.grey, fontSize: 13),
                 )
               ],
-            )
-          ],
-        ),
-        Row(
-          children: [
-            isCircle
-                ? SizedBox(
-                    width: .14 * MediaQuery.sizeOf(context).width,
-                    child: Text(duration,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 13)),
-                  )
-                : Container(
-                    width: 45,
-                    height: 30,
-                    decoration:
-                        BoxDecoration(color: Colors.teal.withOpacity(.1)),
-                    child: Center(
-                      child: Text(duration,
-                          style: const TextStyle(
-                              color: Colors.green, fontSize: 11)),
-                    ),
-                  ),
-            SizedBox(
-              width: isCircle ? .05 * MediaQuery.sizeOf(context).width : 6,
             ),
-            _buildDotDivider(height: 60, color: Colors.teal.withOpacity(0.5)),
             const SizedBox(
-              width: 15,
+              height: 2,
             ),
             isCircle
-                ? CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(carrierLogo),
+                ? Row(
+                    spacing: 10,
+                    children: [
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.white,
+                        backgroundImage: NetworkImage(carrierLogo),
+                      ),
+                      isCircle
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  carrierCode,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  "First".tr,
+                                  style: const TextStyle(color: Colors.grey),
+                                )
+                              ],
+                            )
+                          : const SizedBox()
+                    ],
                   )
                 : Container(
                     width: 215,
@@ -156,17 +157,17 @@ class TripSegment extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.teal.withOpacity(.1),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "waiting time between flights in ",
-                            style: TextStyle(fontSize: 12),
+                            "waiting time between flights in ".tr,
+                            style: const TextStyle(fontSize: 12),
                           ),
-                          Text(
+                          const Text(
                             "DOH , Doha",
                             style: TextStyle(fontWeight: FontWeight.w500),
                           )
@@ -175,21 +176,7 @@ class TripSegment extends StatelessWidget {
                     ),
                   ),
             isCircle ? const SizedBox(width: 10) : const SizedBox(),
-            isCircle
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        carrierCode,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      const Text(
-                        "First",
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  )
-                : const SizedBox()
+          
           ],
         ),
       ],

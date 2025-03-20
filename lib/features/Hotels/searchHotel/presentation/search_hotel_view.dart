@@ -90,7 +90,7 @@ class _SearchHotelViewState extends State<SearchHotelView> {
       debugPrint('Error searching city: $e');
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error searching city: ${e.toString()}')),
+        SnackBar(content: Text('${"Error searching city".tr}: ${e.toString()}')),
       );
     } finally {
       nearestHotelsController.setLoading(false);
@@ -101,7 +101,7 @@ class _SearchHotelViewState extends State<SearchHotelView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search destination'),
+        title:  Text('Search destination'.tr),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -142,7 +142,7 @@ class _SearchHotelViewState extends State<SearchHotelView> {
               child: const Icon(Icons.near_me_outlined, color: Colors.teal),
             ),
             title: Text(currentCity),
-            subtitle: const Text('Near me'),
+            subtitle:  Text('Near me'.tr),
             onTap: _getCurrentLocation,
           ),
           const Divider(),
@@ -152,12 +152,12 @@ class _SearchHotelViewState extends State<SearchHotelView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Recent searches'),
+                   Text('Recent searches'.tr),
                   TextButton(
                     onPressed: () {
                       hotelBox.clear();
                     },
-                    child: const Text('CLEAR ALL',
+                    child:  Text('Clear all'.tr,
                         style: TextStyle(color: Colors.grey, fontSize: 12)),
                   ),
                 ],
@@ -176,7 +176,7 @@ class _SearchHotelViewState extends State<SearchHotelView> {
                 }
 
                 if (searchResults == null || searchResults.data.isEmpty) {
-                  return const Center(child: Text("No cities found"));
+                  return  Center(child: Text("No cities found".tr));
                 }
 
                 return ListView.builder(
@@ -203,7 +203,7 @@ class _SearchHotelViewState extends State<SearchHotelView> {
               child: Obx(() {
                 final hotels = nearestHotelsController.hotels?.data.data;
                 if (hotels == null || hotels.isEmpty) {
-                  return const Center(child: Text("No hotels found."));
+                  return  Center(child: Text("No hotels found.".tr));
                 }
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -248,10 +248,10 @@ class _SearchHotelViewState extends State<SearchHotelView> {
           title: Text('Dubai'),
           subtitle: Text('Dubai'),
         ),
-        const Padding(
+         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            'Popular cities ',
+            'Popular cities '.tr,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),

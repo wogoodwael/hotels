@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../one_way/presentation/widgets/flights_details_section.dart';
 import '../one_way/presentation/widgets/passenget_section.dart';
@@ -46,7 +47,7 @@ class _RoundTripTabState extends State<RoundTripTab> {
                         nonStop = value ?? false;
                       });
                     },
-                    title: const Text('Show direct flights only'),
+                    title:  Text('Show direct flights only'.tr),
                     controlAffinity: ListTileControlAffinity.leading,
                     side: const BorderSide(color: Colors.grey),
                   ),
@@ -57,17 +58,17 @@ class _RoundTripTabState extends State<RoundTripTab> {
             ),
           ),
           const SizedBox(height: 20),
-          const Padding(
+           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Recent Searches",
+                  "Recent Searches".tr,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "Clear all",
+                  "Clear all".tr,
                   style: TextStyle(color: Colors.teal),
                 ),
               ],
@@ -78,7 +79,7 @@ class _RoundTripTabState extends State<RoundTripTab> {
             child: ListTile(
               minVerticalPadding: 0,
               minLeadingWidth: 0,
-              title: const Text("one-way"),
+              title:  Text("one-way".tr),
               subtitle: const Text(
                 "Delhi to Mumbai",
                 textAlign: TextAlign.start,

@@ -75,7 +75,7 @@ Column GetNearestAirports(
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  'Use Current Location',
+                  'Use Current Location'.tr,
                   style: TextStyle(fontSize: 17, color: Colors.grey[600]),
                 ),
               ],
@@ -101,7 +101,7 @@ Column GetNearestAirports(
             final airports = nearestController.nearestAirports?.data.data ?? [];
 
             if (airports.isEmpty) {
-              return const Center(child: Text('No airports found'));
+              return  Center(child: Text('No airports found'.tr));
             }
 
             return ListView.builder(
@@ -136,7 +136,7 @@ Column GetNearestAirports(
                 searchCityNameController.searchResults.value?.data.data ?? [];
 
             if (searchResults.isEmpty) {
-              return const Center(child: Text('No results found'));
+              return  Center(child: Text('No results found'.tr));
             }
 
             return ListView.builder(

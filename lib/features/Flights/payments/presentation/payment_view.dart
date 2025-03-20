@@ -1,5 +1,6 @@
 import 'package:flights/shared/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'widgets/add_card_details.dart';
 import 'widgets/cards_row.dart';
@@ -21,8 +22,8 @@ class PaymentScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         elevation: 0,
-        title: const Text(
-          "Payment",
+        title:  Text(
+          "Payment".tr,
         ),
         centerTitle: true,
       ),

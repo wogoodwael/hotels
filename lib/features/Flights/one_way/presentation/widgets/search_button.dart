@@ -72,7 +72,7 @@ class SearchButton extends StatelessWidget {
         );
         Get.to(() => FlightBookingScreen(nonStop: nonStop));
       },
-      child: const Row(
+      child:  Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
@@ -80,7 +80,7 @@ class SearchButton extends StatelessWidget {
             color: Colors.white,
           ),
           Text(
-            'Search flights',
+            'Search flights'.tr,
             style: TextStyle(fontSize: 16, color: Colors.white),
           ),
         ],

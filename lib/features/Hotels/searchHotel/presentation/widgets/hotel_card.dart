@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HotelCard extends StatelessWidget {
   final Widget imageWidget;
@@ -60,7 +61,7 @@ class HotelCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Text(' star property'),
+                     Text(' star property'.tr),
                     const Text(' • '),
                     Text(location),
                   ],
@@ -78,8 +79,8 @@ class HotelCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Very good',
+                     Text(
+                      'Very good'.tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(' ($rating ratings)'),

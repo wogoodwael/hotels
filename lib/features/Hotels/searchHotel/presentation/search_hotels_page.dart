@@ -105,17 +105,17 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Column(
+        title:  Column(
           children: [
             Text(
-              'Search stays',
+              'Search stays'.tr,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
               ),
             ),
             Text(
-              'Over 1M properties at your fingertips',
+              'Over 1M properties at your fingertips'.tr,
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 13,
@@ -142,15 +142,15 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.location_on_outlined,
                           color: Colors.grey),
-                      title: const Text(
-                        'Destination',
+                      title:  Text(
+                        'Destination'.tr,
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,
                         ),
                       ),
                       subtitle: Text(
-                        cityName ?? 'Select city',
+                        cityName ?? 'Select city'.tr,
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 16,
@@ -171,8 +171,8 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Check in',
+                                 Text(
+                                  'Check in'.tr,
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 14),
                                 ),
@@ -190,8 +190,8 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Check out',
+                                 Text(
+                                  'Check out'.tr,
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 14),
                                 ),
@@ -246,8 +246,8 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                       height: 50,
                       child: ElevatedButton.icon(
                         icon: const Icon(Icons.search, color: Colors.white),
-                        label: const Text(
-                          'Search properties',
+                        label:  Text(
+                          'Search properties'.tr,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -304,10 +304,10 @@ class _SearchHotelsPageState extends State<SearchHotelsPage> {
                               child: Icon(Icons.near_me_outlined,
                                   color: Colors.teal[400])),
                           const SizedBox(width: 8),
-                          const SizedBox(
+                           SizedBox(
                             width: 240,
                             child: Text(
-                              'Search nearby properties for tonight',
+                              'Search nearby properties for tonight'.tr,
                               style: TextStyle(
                                 color: Colors.teal,
                                 fontSize: 18,

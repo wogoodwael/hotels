@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'allowance_item.dart';
 
@@ -18,9 +19,9 @@ class CancelAndDateChange extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+             Row(
               children: [
-                Text('cancel& date change',
+                Text('cancel& date change'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 Spacer(),
                 Icon(

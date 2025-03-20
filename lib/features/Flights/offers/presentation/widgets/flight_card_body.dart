@@ -62,8 +62,8 @@ class FlightCardBody extends StatelessWidget {
                   color: Colors.green[50],
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: const Text(
-                  "Best Value",
+                child:  Text(
+                  "Best Value".tr,
                   style: TextStyle(color: Colors.green),
                 ),
               ),
@@ -124,9 +124,9 @@ class FlightCardBody extends StatelessWidget {
                   height: 40,
                   color: Colors.teal.withOpacity(.1),
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: const Center(
+                  child:  Center(
                     child: Text(
-                      "Search For Similar Results ",
+                      "Search For Similar Results ".tr,
                       style: TextStyle(color: Colors.teal),
                     ),
                   ),

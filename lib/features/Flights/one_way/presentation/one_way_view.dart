@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'widgets/flights_details_section.dart';
@@ -76,7 +77,7 @@ class _OneWayTabState extends State<OneWayTab> {
                           nonStop = value ?? false;
                         });
                       },
-                      title: const Text('Show direct flights only'),
+                      title: Text('Show direct flights only'.tr),
                       controlAffinity: ListTileControlAffinity.leading,
                       side: const BorderSide(color: Colors.grey),
                     ),
@@ -94,8 +95,8 @@ class _OneWayTabState extends State<OneWayTab> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Recent Searches",
+                        Text(
+                          "Recent Searches".tr,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -106,8 +107,8 @@ class _OneWayTabState extends State<OneWayTab> {
                               isCleared = true;
                             });
                           },
-                          child: const Text(
-                            "Clear all",
+                          child: Text(
+                            "Clear all".tr,
                             style: TextStyle(color: Colors.teal),
                           ),
                         ),
@@ -121,9 +122,9 @@ class _OneWayTabState extends State<OneWayTab> {
                     child: ListTile(
                       minVerticalPadding: 0,
                       minLeadingWidth: 0,
-                      title: const Text("one-way"),
+                      title: Text("one-way".tr),
                       subtitle: Text(
-                        "${sourceData?['cityName'] ?? ""} to ${destinationData?['cityName'] ?? ""}",
+                        "${sourceData?['cityName'] ?? ""} ${"to".tr} ${destinationData?['cityName'] ?? ""}",
                         textAlign: TextAlign.start,
                       ),
                       trailing: Row(

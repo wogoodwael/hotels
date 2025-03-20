@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../one_way/presentation/widgets/flights_details_section.dart';
 
@@ -53,7 +54,7 @@ class MultiCityBody extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   side: const BorderSide(color: Colors.teal)),
               onPressed: () {},
-              child: const Row(
+              child:  Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
@@ -61,7 +62,7 @@ class MultiCityBody extends StatelessWidget {
                     color: Colors.teal,
                   ),
                   Text(
-                    'Add another flight?',
+                    'Add another flight?'.tr,
                     style: TextStyle(fontSize: 16, color: Colors.teal),
                   ),
                 ],

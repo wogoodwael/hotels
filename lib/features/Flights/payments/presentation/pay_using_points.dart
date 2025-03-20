@@ -1,5 +1,6 @@
 import 'package:flights/features/Flights/traveler_details/presentation/widgets/phone_number_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'widgets/confirm_bottom_sheet.dart';
 
@@ -20,10 +21,10 @@ class PayUsingPoints extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Column(
+             Column(
               children: [
                 Text(
-                  'Total due',
+                  'Total due'.tr,
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
                 Text(

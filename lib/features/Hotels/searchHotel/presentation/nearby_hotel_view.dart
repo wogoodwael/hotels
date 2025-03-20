@@ -186,10 +186,10 @@ class _NearByHotelViewState extends State<NearByHotelView> {
                       border: Border.all(color: Colors.grey[300]!),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Row(
+                    child:  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Property rating'),
+                        Text('Property rating'.tr),
                         Icon(Icons.keyboard_arrow_down,
                             size: 20, color: Colors.teal),
                       ],
@@ -203,10 +203,10 @@ class _NearByHotelViewState extends State<NearByHotelView> {
                       border: Border.all(color: Colors.grey[300]!),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Row(
+                    child:  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Guest rating'),
+                        Text('Guest rating'.tr),
                         Icon(Icons.keyboard_arrow_down,
                             size: 20, color: Colors.teal),
                       ],
@@ -241,12 +241,12 @@ class _NearByHotelViewState extends State<NearByHotelView> {
             child: Obx(() {
               if (widget.isOffers) {
                 if (hotelsOfferController.error.value.isNotEmpty) {
-                  return const Center(
+                  return  Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.bed_outlined, size: 40, color: Colors.red),
-                        Text("No hotel offers found."),
+                        Text("No hotel offers found.".tr),
                       ],
                     ),
                   );
@@ -255,14 +255,14 @@ class _NearByHotelViewState extends State<NearByHotelView> {
                 final hotelsOffers =
                     hotelsOfferController.hotelOffers.value?.data.data;
                 if (hotelsOffers == null || hotelsOffers.isEmpty) {
-                  return const Center(child: Text("No hotel offers found."));
+                  return  Center(child: Text("No hotel offers found.".tr));
                 }
                 return _buildHotelList(hotelsOffers.length,
                     hotelsOffers: hotelsOffers);
               } else {
                 final hotels = nearestHotelsController.hotels?.data.data;
                 if (hotels == null || hotels.isEmpty) {
-                  return const Center(child: Text("No hotels found."));
+                  return  Center(child: Text("No hotels found.".tr));
                 }
                 return _buildHotelList(hotels.length, hotels: hotels);
               }

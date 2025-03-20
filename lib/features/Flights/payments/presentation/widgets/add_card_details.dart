@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddCardDetails extends StatelessWidget {
   const AddCardDetails({
@@ -11,8 +12,8 @@ class AddCardDetails extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: () {},
         icon: const Icon(Icons.track_changes_outlined, color: Colors.teal),
-        label: const Text(
-          "Tap to add your card details",
+        label:  Text(
+          "Tap to add your card details".tr,
           style: TextStyle(color: Colors.teal),
         ),
         style: ElevatedButton.styleFrom(

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../round_trip/round_trip_view.dart';
-import '../../../search_flight/presentation/search_flight_taps.dart';
 import '../../../search_flight/presentation/search_flight_view.dart';
 
 class FlightDetailsSection extends StatefulWidget {
@@ -67,8 +65,8 @@ class _FlightDetailsSectionState extends State<FlightDetailsSection> {
             Column(
               children: [
                 LocationField(
-                  title: 'From',
-                  hintText: sourceData?['cityName'] ?? 'Select Source',
+                  title: 'From'.tr,
+                  hintText: sourceData?['cityName'] ?? 'Select Source'.tr,
                   icon: Icons.location_searching_rounded,
                   onTap: () {
                     Get.to(() => const SearchFlightView(isdestination: false));
@@ -80,9 +78,9 @@ class _FlightDetailsSectionState extends State<FlightDetailsSection> {
                 ),
                 const SizedBox(height: 10),
                 LocationField(
-                  title: 'To',
+                  title: 'to'.tr,
                   hintText:
-                      destinationData?['cityName'] ?? 'Select Destination',
+                      destinationData?['cityName'] ?? 'Select Destination'.tr,
                   icon: Icons.location_on,
                   onTap: () {
                     Get.to(() => const SearchFlightView(isdestination: true));

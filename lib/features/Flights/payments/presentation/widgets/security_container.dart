@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SecurityContainer extends StatelessWidget {
   const SecurityContainer({
@@ -14,7 +15,7 @@ class SecurityContainer extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.green.withOpacity(.1),
             borderRadius: BorderRadius.circular(10)),
-        child: const Row(
+        child:  Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Icon(
@@ -22,7 +23,7 @@ class SecurityContainer extends StatelessWidget {
               color: Colors.grey,
             ),
             Text(
-                "Your transactions are 100% safe with \n us and we protect your information")
+                "Your transactions are 100% safe with \n us and we protect your information".tr)
           ],
         ),
       ),

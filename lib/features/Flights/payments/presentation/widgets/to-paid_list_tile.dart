@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ToPaidListTile extends StatelessWidget {
   const ToPaidListTile({
@@ -7,9 +8,9 @@ class ToPaidListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
+    return  ListTile(
       title: Text(
-        'Total to be paid ',
+        'Total to be paid '.tr,
         style: TextStyle(color: Colors.grey, fontSize: 12),
       ),
       subtitle: Text(
@@ -19,7 +20,7 @@ class ToPaidListTile extends StatelessWidget {
       trailing: Padding(
         padding: EdgeInsets.only(left: 15.0),
         child: Text(
-          "VIEW BOOKING SUMMARY",
+          "VIEW BOOKING SUMMARY".tr,
           style: TextStyle(
               color: Colors.teal, fontSize: 11, fontWeight: FontWeight.bold),
         ),

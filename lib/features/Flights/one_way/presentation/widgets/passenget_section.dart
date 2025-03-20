@@ -19,7 +19,7 @@ class PassengerClassSection extends StatelessWidget {
           color: Colors.grey,
         ),
         title: Text(
-          isHotel ? "Guests" : 'Passengers and cabin Class',
+          isHotel ? "Guests".tr : 'Passengers and cabin Class'.tr,
           style: const TextStyle(fontSize: 12),
         ),
         subtitle: Text(

@@ -133,8 +133,8 @@ class _AdultContainerState extends State<AdultContainer> {
                   },
                   child: Text(
                     widget.firstName != ""
-                        ? "Change/ add traveller"
-                        : "Add a new traveller",
+                        ? "Change/ add traveller".tr
+                        : "Add a new traveller".tr,
                     style: const TextStyle(color: Colors.teal),
                   ),
                 ),

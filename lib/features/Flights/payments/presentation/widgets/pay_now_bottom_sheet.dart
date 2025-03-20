@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PayNowBottomSheet extends StatelessWidget {
   const PayNowBottomSheet({
@@ -28,8 +29,8 @@ class PayNowBottomSheet extends StatelessWidget {
                 Icons.lock_open_sharp,
                 color: Colors.white,
               ),
-              label: const Text(
-                "Pay now ",
+              label:  Text(
+                "Pay now ".tr,
                 style: TextStyle(color: Colors.white),
               ),
             ),

@@ -78,7 +78,8 @@ class _SearchFlightViewState extends State<SearchFlightView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Search Flight')),
+      appBar: AppBar(title: 
+       Text('Search Flight'.tr)),
       body: GetNearestAirports(
         context,
         _searchController,

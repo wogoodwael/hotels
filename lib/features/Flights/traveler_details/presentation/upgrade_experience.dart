@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:get/get.dart';
 
 class UpgradeExperienceScreen extends StatelessWidget {
   const UpgradeExperienceScreen({super.key, required this.url});
@@ -15,8 +16,8 @@ class UpgradeExperienceScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          "Upgrade your experience",
+        title:  Text(
+          "Upgrade your experience".tr,
         ),
         elevation: 0,
       ),

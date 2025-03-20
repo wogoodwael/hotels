@@ -191,7 +191,7 @@ class _DateFieldState extends State<DateField> {
                         child: Text(
                           _returnDateController.text.isNotEmpty
                               ? _returnDateController.text
-                              : "Add return ? ",
+                              : "Add return ? ".tr,
                           style: const TextStyle(
                               color: Colors.teal, fontWeight: FontWeight.bold),
                         ),
@@ -250,7 +250,7 @@ class DatePickerPage extends StatelessWidget {
     final DateTime now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select Date'),
+        title:  Text('Select Date'.tr),
         backgroundColor: Colors.teal,
       ),
       body: CalendarDatePicker(

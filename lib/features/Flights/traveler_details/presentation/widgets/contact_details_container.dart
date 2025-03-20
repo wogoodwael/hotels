@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../shared/widgets/custom_text_field.dart';
 import 'phone_number_container.dart';
@@ -39,8 +40,8 @@ class ContactDetailsContainer extends StatelessWidget {
                 labelText: "Country Code*", controller: countryCodeController),
             const SizedBox(height: 16),
             CustomTextField(labelText: "Email*", controller: emailController),
-            const Text(
-              "Your Purchased tickets will be sent to this email ",
+             Text(
+              "Your Purchased tickets will be sent to this email ".tr,
               style: TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 16),

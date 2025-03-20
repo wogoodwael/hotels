@@ -1,5 +1,6 @@
 import 'package:flights/features/Flights/search_flight/presentation/widgets/search_flight_body.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SearchFlightsPage extends StatefulWidget {
@@ -49,9 +50,10 @@ class _SearchFlightsPageState extends State<SearchFlightsPage>
         surfaceTintColor: Colors.white,
         elevation: 1,
         centerTitle: true,
-        title: const Text(
-          'Search flights',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        title: Text(
+          'Search flights'.tr,
+          style:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -62,10 +64,10 @@ class _SearchFlightsPageState extends State<SearchFlightsPage>
           labelColor: Colors.teal,
           unselectedLabelColor: Colors.grey,
           indicatorColor: Colors.teal,
-          tabs: const [
-            Tab(text: 'One-way'),
-            Tab(text: 'Round-trip'),
-            Tab(text: 'Multi-city'),
+          tabs: [
+            Tab(text: 'one-way'.tr),
+             Tab(text: 'Round-trip'.tr),
+             Tab(text: 'Multi-city'.tr),
           ],
         ),
       ),

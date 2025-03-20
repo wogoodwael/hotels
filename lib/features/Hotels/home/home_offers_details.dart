@@ -50,7 +50,7 @@ class HomeOffersDetails extends StatelessWidget {
                       Get.snackbar('Error', e.toString());
                     }
                   },
-                  label: const Text("اتصل بنا"),
+                  label:  Text("Contact Us".tr),
                   icon: const FaIcon(
                     FontAwesomeIcons.whatsapp,
                     color: Colors.white,

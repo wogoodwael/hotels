@@ -119,7 +119,7 @@ class _TravellerDetailsScreenState extends State<TravellerDetailsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Traveller Details"),
+        title:  Text("Traveller Details".tr),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -134,8 +134,8 @@ class _TravellerDetailsScreenState extends State<TravellerDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  title: const Text(
-                    'Total to be paid ',
+                  title:  Text(
+                    'Total to be paid '.tr,
                     style: TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                   subtitle: Text(
@@ -143,10 +143,10 @@ class _TravellerDetailsScreenState extends State<TravellerDetailsScreen> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 17),
                   ),
-                  trailing: const Padding(
+                  trailing:  Padding(
                     padding: EdgeInsets.only(left: 15.0),
                     child: Text(
-                      "VIEW BOOKING SUMMARY",
+                      "VIEW BOOKING SUMMARY".tr,
                       style: TextStyle(
                           color: Colors.teal,
                           fontSize: 11,
@@ -155,10 +155,10 @@ class _TravellerDetailsScreenState extends State<TravellerDetailsScreen> {
                   ),
                 ),
                 const Divider(),
-                const Padding(
+                 Padding(
                   padding: EdgeInsets.only(left: 10.0),
                   child: Text(
-                    "Traveller Detials",
+                    "Traveller Detials".tr,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -174,10 +174,10 @@ class _TravellerDetailsScreenState extends State<TravellerDetailsScreen> {
                           )),
                 ),
                 const SizedBox(height: 25),
-                const Padding(
+                 Padding(
                   padding: EdgeInsets.only(left: 10.0),
                   child: Text(
-                    "Contact Details",
+                    "Contact Details".tr,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -238,7 +238,7 @@ class _TravellerDetailsScreenState extends State<TravellerDetailsScreen> {
                       value: false,
                       onChanged: (bool? value) {},
                     ),
-                    const Text("Save details to my profile"),
+                     Text("Save details to my profile".tr),
                   ],
                 ),
                 const SizedBox(height: 100),

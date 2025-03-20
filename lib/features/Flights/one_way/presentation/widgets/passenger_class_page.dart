@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../Hotels/searchHotel/presentation/search_hotels_page.dart';
@@ -65,7 +66,7 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Travellers & cabin class'),
+        title:  Text('Travellers & cabin class'.tr),
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
@@ -94,9 +95,9 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
                             topRight: Radius.circular(10)),
                         color: Colors.grey.withOpacity(.1),
                       ),
-                      child: const ListTile(
+                      child:  ListTile(
                         title: Text(
-                          'Travellers',
+                          'Travellers'.tr,
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w500),
                         ),
@@ -128,9 +129,9 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
                             topRight: Radius.circular(10)),
                         color: Colors.grey.withOpacity(.1),
                       ),
-                      child: const ListTile(
+                      child:  ListTile(
                         title: Text(
-                          'Cabin class',
+                          'Cabin class'.tr,
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w500),
                         ),
@@ -151,8 +152,8 @@ class _PassengerClassPageState extends State<PassengerClassPage> {
                 backgroundColor: Colors.teal,
                 minimumSize: const Size(double.infinity, 48),
               ),
-              child: const Text(
-                'Apply',
+              child:  Text(
+                'Apply'.tr,
                 style: TextStyle(color: Colors.white),
               ),
             ),

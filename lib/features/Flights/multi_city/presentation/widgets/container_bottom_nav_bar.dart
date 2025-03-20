@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ContainerBottomNavBar extends StatelessWidget {
   const ContainerBottomNavBar({
@@ -20,7 +21,7 @@ class ContainerBottomNavBar extends StatelessWidget {
         ),
         color: Colors.red,
         onPressed: () {},
-        child: const Row(
+        child:  Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -29,7 +30,7 @@ class ContainerBottomNavBar extends StatelessWidget {
               color: Colors.white,
             ),
             Text(
-              'Search flights',
+              'Search flights'.tr,
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
           ],

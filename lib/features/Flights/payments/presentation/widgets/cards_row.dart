@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardsRow extends StatelessWidget {
   const CardsRow({
@@ -9,10 +10,10 @@ class CardsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Padding(
+         Padding(
           padding: EdgeInsets.only(left: 10.0),
           child: Text(
-            "Cards accepted ",
+            "Cards accepted ".tr,
             style: TextStyle(color: Colors.grey),
           ),
         ),

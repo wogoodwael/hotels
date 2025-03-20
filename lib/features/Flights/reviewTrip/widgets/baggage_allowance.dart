@@ -19,9 +19,9 @@ class BaggageAllowance extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+             Row(
               children: [
-                Text('Baggage allowance',
+                Text('Baggage allowance'.tr,
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 Spacer(),
                 Icon(
@@ -57,15 +57,15 @@ class BaggageAllowance extends StatelessWidget {
                     .amenities;
 
                 if (amenities == null || amenities.isEmpty) {
-                  return const ListTile(
-                    title: Text("No amenities available"),
+                  return  ListTile(
+                    title: Text("No amenities available".tr),
                   );
                 }
 
                 return ListTile(
                   leading: Icon(Icons.check_circle, color: Colors.green[200]),
-                  title: Text(amenities[index].description ?? "No description"),
-                  subtitle: Text(amenities[index].code ?? "No code"),
+                  title: Text(amenities[index].description ?? "No description".tr),
+                  subtitle: Text(amenities[index].code ?? "No code".tr),
                 );
               },
             ),

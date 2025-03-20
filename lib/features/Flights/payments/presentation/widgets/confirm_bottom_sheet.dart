@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ConfirmBottomSheet extends StatelessWidget {
   const ConfirmBottomSheet({
@@ -23,8 +24,8 @@ class ConfirmBottomSheet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            child: const Text(
-              "Confirm",
+            child:  Text(
+              "Confirm".tr,
               style: TextStyle(color: Colors.white, fontSize: 18),
             )),
       ),

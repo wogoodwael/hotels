@@ -38,23 +38,23 @@ class HomeHeader extends StatelessWidget {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 100,
           left: 20,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Explore the world today',
-                style: TextStyle(
+                'Explore the world today'.tr,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                'Discover where to travel next!',
-                style: TextStyle(
+                'Discover where to travel next!'.tr,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),
@@ -62,7 +62,7 @@ class HomeHeader extends StatelessWidget {
             ],
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 170,
           left: 20,
           right: 20,
@@ -70,12 +70,12 @@ class HomeHeader extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              suffixIcon: Icon(Icons.search),
-              hintText: 'Search destination',
-              border: OutlineInputBorder(
+              suffixIcon: const Icon(Icons.search),
+              hintText: 'Search destination'.tr,
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)),
                 borderSide: BorderSide(color: Colors.white),
               ),

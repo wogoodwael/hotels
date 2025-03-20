@@ -2,6 +2,7 @@ import 'package:flights/features/Flights/FarTypeSelection/domain/upselling_contr
 import 'package:flights/features/Flights/reviewTrip/widgets/cancel_and_date_change.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../FarTypeSelection/data/api/upselling_api.dart';
 import '../FarTypeSelection/data/repo/upselling_repo.dart';
@@ -9,7 +10,6 @@ import 'widgets/baggage_allowance.dart';
 import 'widgets/bottom_bar.dart';
 import 'widgets/earn_rewards.dart';
 import 'widgets/trip_details.dart';
-import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class ReviewTripScreen extends StatefulWidget {
@@ -46,9 +46,13 @@ class _ReviewTripScreenState extends State<ReviewTripScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
-        title: const Text('Review your trip',
-            style: TextStyle(color: Colors.black)),
+        leading: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: const Icon(Icons.arrow_back, color: Colors.black)),
+        title: Text('Review your trip'.tr,
+            style: const TextStyle(color: Colors.black)),
         centerTitle: true,
       ),
       body: Obx(() {
@@ -62,9 +66,9 @@ class _ReviewTripScreenState extends State<ReviewTripScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Unable to retrieve upsell offer',
-                  style: TextStyle(
+                Text(
+                  'Unable to retrieve upsell offer'.tr,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.red,
@@ -86,7 +90,7 @@ class _ReviewTripScreenState extends State<ReviewTripScreen> {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () => fetechData(),
-                  child: const Text('Retry'),
+                  child: Text('Retry'.tr),
                 )
               ],
             ),
@@ -105,9 +109,9 @@ class _ReviewTripScreenState extends State<ReviewTripScreen> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Text(
-                      'Total duration',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Text(
+                      'Total duration'.tr,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       width: 20,

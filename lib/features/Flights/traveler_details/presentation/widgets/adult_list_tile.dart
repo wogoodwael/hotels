@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'adult_container.dart';
 
@@ -27,7 +28,7 @@ class AdultListTile extends StatelessWidget {
       subtitle: Text(
         widget.dateOfBirth != null
             ? "${widget.dateOfBirth!.toLocal()}".split(' ')[0]
-            : "Date of Birth not set",
+            : "Date of Birth not set".tr,
         style: const TextStyle(color: Colors.grey),
       ),
     );

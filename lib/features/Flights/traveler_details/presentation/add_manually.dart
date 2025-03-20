@@ -17,7 +17,7 @@ class AddManuallyScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Traveler Details'),
+        title:  Text('Add Traveler Details'.tr),
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
       ),
@@ -26,8 +26,8 @@ class AddManuallyScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Passport Information',
+             Text(
+              'Passport Information'.tr,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -222,8 +222,8 @@ class AddManuallyScreen extends StatelessWidget {
                   backgroundColor: Colors.teal,
                   minimumSize: const Size(300, 50),
                 ),
-                child: const Text(
-                  'Save Details',
+                child:  Text(
+                  'Save Details'.tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 17,

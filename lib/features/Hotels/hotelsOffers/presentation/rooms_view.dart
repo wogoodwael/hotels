@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class RoomsView extends StatelessWidget {
   final String hotelId;
@@ -28,7 +29,7 @@ class RoomsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Rooms'),
+        title:  Text('Rooms'.tr),
       ),
       body: ListView.builder(
         itemCount: roomsLength,
@@ -89,8 +90,8 @@ class RoomsView extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(width: 8),
-                          const Text(
-                            'Very good',
+                           Text(
+                            'Very good'.tr,
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(' ($hotelRating ratings)'),
@@ -130,7 +131,7 @@ class RoomsView extends StatelessWidget {
                               color: Colors.red,
                             ),
                           ),
-                          const Text(
+                           Text(
                             'per night',
                             style: TextStyle(
                               color: Colors.grey,

@@ -21,6 +21,7 @@ class TripDetails extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: List.generate(
               upsellingController.upsellingResponse.value.data?.data?[0]
                       .itineraries?[0].segments?.length ??
@@ -85,6 +86,18 @@ class TripDetails extends StatelessWidget {
                     "",
                 carrierCode:
                     "${upsellingController.upsellingResponse.value.data?.data?[0].itineraries?[0].segments?[index].carrierCode} ${upsellingController.upsellingResponse.value.data?.data?[0].itineraries?[0].segments?[index].arrival?.iataCode}",
+                height: (upsellingController.upsellingResponse.value.data
+                                ?.data?[0].itineraries?[0].segments?.length ??
+                            0) ==
+                        1
+                    ? (upsellingController.upsellingResponse.value.data
+                                ?.data?[0].itineraries?[0].segments?.length ??
+                            0) *
+                        150
+                    : (upsellingController.upsellingResponse.value.data
+                                ?.data?[0].itineraries?[0].segments?.length ??
+                            0) *
+                        100,
               ),
             );
           }),

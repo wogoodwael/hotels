@@ -45,13 +45,13 @@ class _SimilarResultsViewState extends State<SimilarResultsView> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Similar Results'),
+        title:  Text('Similar Results'.tr),
         centerTitle: true,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : upsellingData?.data == null || upsellingData!.data!.isEmpty
-              ? const Center(child: Text('No similar results available'))
+              ?  Center(child: Text('No similar results available'.tr))
               : ListView.builder(
                   itemCount: upsellingData.data!.length,
                   itemBuilder: (context, index) {

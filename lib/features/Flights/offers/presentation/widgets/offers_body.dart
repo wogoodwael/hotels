@@ -31,12 +31,12 @@ class OffersBody extends StatelessWidget {
                     border: Border.all(color: Colors.grey.withOpacity(.4)),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.swap_vert_rounded, size: 20),
                       SizedBox(width: 8),
-                      Text("Sort: Recommended"),
+                      Text("Sort: Recommended".tr),
                     ],
                   ),
                 ),
@@ -47,12 +47,12 @@ class OffersBody extends StatelessWidget {
                     border: Border.all(color: Colors.grey.withOpacity(.4)),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.filter_list, size: 20),
                       SizedBox(width: 8),
-                      Text("Filters"),
+                      Text("Filters".tr),
                     ],
                   ),
                 ),
@@ -63,12 +63,12 @@ class OffersBody extends StatelessWidget {
                     border: Border.all(color: Colors.grey.withOpacity(.4)),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.stop, size: 20),
                       SizedBox(width: 8),
-                      Text("Stops"),
+                      Text("Stops".tr),
                     ],
                   ),
                 ),
@@ -83,11 +83,11 @@ class OffersBody extends StatelessWidget {
             }
 
             if (offersController.error.isNotEmpty) {
-              return const Center(child: Text("No offers available"));
+              return  Center(child: Text("No offers available".tr));
             }
 
             if (offersController.offers == null) {
-              return const Center(child: Text('No offers available'));
+              return  Center(child: Text('No offers available'.tr));
             }
 
             return ListView.builder(

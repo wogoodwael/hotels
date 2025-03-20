@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PricingRow extends StatelessWidget {
   const PricingRow({
@@ -26,7 +27,7 @@ class PricingRow extends StatelessWidget {
             children: [
               if (availability.isNotEmpty)
                 Text(
-                  "$availability  Seats left at this price ",
+                  "$availability  ${"Seats left at this price".tr} ",
                   style: const TextStyle(color: Colors.red, fontSize: 12),
                 ),
               const Icon(
@@ -46,9 +47,9 @@ class PricingRow extends StatelessWidget {
                 width: 100,
                 height: 25,
                 decoration: const BoxDecoration(color: Colors.teal),
-                child: const Center(
+                child:  Center(
                   child: Text(
-                    "Starting from",
+                    "Starting from".tr,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,

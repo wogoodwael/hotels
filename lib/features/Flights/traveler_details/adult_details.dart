@@ -151,7 +151,7 @@ class _AdultDetailsState extends State<AdultDetails> {
               Container(
                 height: 80,
                 color: const Color(0xfffff8e6),
-                child: const Padding(
+                child:  Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,7 +162,7 @@ class _AdultDetailsState extends State<AdultDetails> {
                         child: SizedBox(
                           width: 250,
                           child: Text(
-                            "Please make sure your information matches your government-issued identification.",
+                            "Please make sure your information matches your government-issued identification.".tr,
                             style:
                                 TextStyle(color: Colors.black87, fontSize: 14),
                             textAlign: TextAlign.start,
@@ -184,8 +184,8 @@ class _AdultDetailsState extends State<AdultDetails> {
                     Icons.document_scanner_outlined,
                     color: Colors.white,
                   ),
-                  label: const Text(
-                    "Scan ID to add traveller",
+                  label:  Text(
+                    "Scan ID to add traveller".tr,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 17,

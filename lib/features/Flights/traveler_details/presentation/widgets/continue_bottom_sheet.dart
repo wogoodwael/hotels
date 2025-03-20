@@ -170,8 +170,8 @@ class ContinueBottomSheet extends StatelessWidget {
                 ? const CircularProgressIndicator(
                     color: Colors.white,
                   )
-                : const Text(
-                    "Continue",
+                :  Text(
+                    "Continue".tr,
                     style: TextStyle(color: Colors.white),
                   ),
           ),
